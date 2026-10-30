@@ -1,0 +1,147 @@
+{
+  "nav": {
+    "about": "À propos",
+    "products": "Produits",
+    "craftsman": "Notre Artisan",
+    "contact": "Contact",
+    "menu": "Menu",
+    "close": "Fermer le menu"
+  },
+  "hero": {
+    "line1": "Fabriqué à la main",
+    "line2": "à Kigali,",
+    "line3": "Fait pour durer."
+  },
+  "home": {
+    "intro_heading": "Un mobilier né de la patience et du savoir-faire",
+    "intro_body1": "Sons of Damascene est un atelier familial à Kigali, au Rwanda. Nous concevons et fabriquons des lits, tables, chaises, espaces de rangement et pièces uniques—chacun réalisé avec du bois local et fini à la main.",
+    "intro_body2": "Chaque pièce commence par une conversation. Dites-nous ce que vous avez en tête, et nous le réaliserons.",
+    "categories_heading": "Parcourir par catégorie",
+    "collage_materials_heading": "Bois local, caractère durable",
+    "collage_section_heading": "De notre atelier",
+    "collage_materials_body": "Nous travaillons avec du bois récolté de manière durable dans les forêts rwandaises—acajou, eucalyptus, pin et bois de rose—choisis pour leur grain, leur durabilité et leur chaleur. Pas de placages. Pas de raccourcis.",
+    "collage_cta_heading": "Vous avez une pièce en tête ?",
+    "collage_cta_body": "Parcourez notre collection pour vous inspirer, puis contactez-nous sur WhatsApp pour démarrer votre commande sur mesure.",
+    "collage_cta_link": "Explorer les produits",
+    "collage_process_heading": "Notre Processus",
+    "collage_process_body": "Concevoir. Fabriquer. Finir. Livrer. Chaque étape est gérée dans notre atelier de Kigali par les mêmes mains qui ont façonné le bois. Nous vous tenons informé de la première esquisse à la livraison finale.",
+    "testimonials_heading": "Ce que disent nos clients",
+    "testimonials_pause": "Mettre en pause les témoignages",
+    "testimonials_play": "Lire les témoignages",
+    "banner_headline": "L'équilibre parfait entre savoir-faire et confort"
+  },
+  "about": {
+    "title": "À propos de Sons of Damascene",
+    "heading": "Un atelier construit sur la patience",
+    "body1": "Sons of Damascene a été fondé à Kigali avec un seul objectif : fabriquer des meubles qui durent une vie. Nos artisans ont appris leur métier après des années de pratique, étudiant le grain, les assemblages et les finitions jusqu'à pouvoir produire un travail qui raconte une histoire.",
+    "body2": "Nous croyons qu'un bon meuble ne crie pas. Il se pose tranquillement dans une pièce et gagne en beauté avec l'âge. Nous construisons selon ce standard, pièce par pièce.",
+    "values_heading": "Ce pour quoi nous nous battons",
+    "value_craft": "Savoir-faire",
+    "value_craft_body": "Chaque assemblage est taillé à la main. Chaque surface est finie à la main. Nous ne nous précipitons pas.",
+    "value_durability": "Durabilité",
+    "value_durability_body": "Nous utilisons du bois qui survivra aux tendances et aux modes. Nos meubles sont faits pour être transmis.",
+    "value_local": "Bois local",
+    "value_local_body": "Nous nous approvisionnons de manière responsable dans les forêts rwandaises et auprès de fournisseurs certifiés, soutenant l'écosystème local.",
+    "process_heading": "Notre façon de travailler",
+    "closing": "Prêt à trouver votre pièce ?",
+    "closing_cta": "Parcourir la collection"
+  },
+  "craftsman": {
+    "title": "Notre Artisan",
+    "heading": "Rencontrez le créateur",
+    "intro": "Les mains derrière Sons of Damascene façonnent le bois depuis plus de quinze ans. Né à Kigali, formé par apprentissage et pratique, notre artisan principal apporte une dévotion tranquille à chaque pièce qui quitte l'atelier.",
+    "experience": "Plus de 15 ans d'expérience",
+    "approach_heading": "Une approche enracinée dans la patience",
+    "approach_body": "Un bon meuble ne peut pas être précipité. Notre artisan sélectionne personnellement chaque planche, vérifiant le grain et l'humidité avant qu'une seule coupe soit faite. Le résultat est un travail qui sera encore beau dans des décennies.",
+    "tools_heading": "Outils et matériaux",
+    "tools_body": "Rabots, ciseaux, scies à mortaise et couteaux à tirer côtoient des outils de menuiserie modernes. La combinaison nous donne à la fois précision et caractère. Nous finissons avec des huiles et cires naturelles—rien de plastique, rien de synthétique.",
+    "link": "Voir la collection"
+  },
+  "products": {
+    "title": "Produits",
+    "heading": "Notre Collection",
+    "filter_all": "Tous",
+    "empty": "De nouvelles pièces arrivent bientôt.",
+    "price_request": "Prix sur demande",
+    "sample_price": "Prix indicatif",
+    "loading": "Chargement des produits…"
+  },
+  "product": {
+    "category": "Catégorie",
+    "wood_type": "Type de bois",
+    "dimensions": "Dimensions",
+    "lead_time": "Délai de fabrication",
+    "whatsapp_btn": "Demander sur WhatsApp",
+    "related": "Vous aimerez peut-être aussi",
+    "price_request": "Prix sur demande",
+    "gallery_prev": "Image précédente",
+    "gallery_next": "Image suivante"
+  },
+  "contact": {
+    "title": "Contact",
+    "heading": "Prenez contact",
+    "address_heading": "Adresse de l'atelier",
+    "phone_heading": "Téléphone",
+    "email_heading": "Email",
+    "hours_heading": "Horaires d'ouverture",
+    "form_heading": "Envoyer un message",
+    "name": "Votre nom",
+    "contact_field": "Email ou numéro de téléphone",
+    "message": "Votre message",
+    "submit": "Envoyer le message",
+    "success": "Merci ! Nous vous répondrons bientôt.",
+    "error": "Quelque chose s'est mal passé. Veuillez réessayer."
+  },
+  "footer": {
+    "tagline": "Mobilier artisanal de Kigali, Rwanda.",
+    "links_heading": "Pages",
+    "copyright": "© 2025 Sons of Damascene. Tous droits réservés."
+  },
+  "lang": {
+    "en": "Anglais",
+    "rw": "Kinyarwanda",
+    "fr": "Français",
+    "changed": "Langue changée en {{lang}}"
+  },
+  "admin": {
+    "login_heading": "Connexion administrateur",
+    "email": "Adresse email",
+    "password": "Mot de passe",
+    "sign_in": "Se connecter",
+    "sign_out": "Se déconnecter",
+    "dashboard": "Tableau de bord",
+    "products": "Produits",
+    "testimonials": "Témoignages",
+    "settings": "Paramètres",
+    "add_product": "Ajouter un produit",
+    "edit_product": "Modifier le produit",
+    "delete_confirm": "Êtes-vous sûr de vouloir supprimer ceci ? Cette action est irréversible.",
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "delete": "Supprimer",
+    "publish": "Publier",
+    "unpublish": "Dépublier",
+    "feature": "Mettre en vedette",
+    "unfeature": "Retirer de la vedette",
+    "search": "Rechercher…",
+    "upload_images": "Télécharger des images",
+    "cover": "Couverture",
+    "set_cover": "Définir comme couverture",
+    "enquiries": "Demandes",
+    "no_enquiries": "Aucune demande pour l'instant.",
+    "saved": "Enregistré.",
+    "error": "Quelque chose s'est mal passé."
+  },
+  "placeholder": {
+    "photo": "Photo à venir"
+  },
+  "seo": {
+    "home_title": "Sons of Damascene – Mobilier artisanal à Kigali, Rwanda",
+    "home_desc": "Lits, tables, chaises et rangements sur mesure fabriqués à Kigali, Rwanda. Parcourez notre collection et renseignez-vous sur WhatsApp.",
+    "products_title": "Produits – Sons of Damascene",
+    "products_desc": "Découvrez des meubles en bois artisanaux fabriqués sur mesure à Kigali, Rwanda.",
+    "about_title": "À propos – Sons of Damascene",
+    "craftsman_title": "Notre Artisan – Sons of Damascene",
+    "contact_title": "Contact – Sons of Damascene"
+  }
+}

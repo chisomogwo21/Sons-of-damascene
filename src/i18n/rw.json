@@ -1,0 +1,148 @@
+{
+  "_NOTE": "⚠️ These translations are best-effort and MUST be reviewed by a native Kinyarwanda speaker before launch.",
+  "nav": {
+    "about": "Ibyerekeye",
+    "products": "Ibicuruzwa",
+    "craftsman": "Umuhanga Wacu",
+    "contact": "Twandikire",
+    "menu": "Menyu",
+    "close": "Funga menyu"
+  },
+  "hero": {
+    "line1": "Bikorwa n'intoki",
+    "line2": "i Kigali,",
+    "line3": "Bikoze kuramara."
+  },
+  "home": {
+    "intro_heading": "Fenituri Ivuka mu Gukora n'Ubunyangamugayo",
+    "intro_body1": "Sons of Damascene ni ateliye yo mu muryango i Kigali, u Rwanda. Dutekereza kandi twubaka ibitanda, ameza, intebe, ibibyoroshye n'ibintu byihariye—buri kimwe kikorwa n'inzuzu zivuye mu Rwanda kandi zikarangiwa n'intoki.",
+    "intro_body2": "Buri kintu gitangira n'ikiganiro. Tubwire ivyo ushaka, kandi tuzakigerageza.",
+    "categories_heading": "Reba Inzitanye",
+    "collage_materials_heading": "Inzuzu z'u Rwanda, Imico y'Amahera",
+    "collage_section_heading": "Biva mu ruganda rwacu",
+    "collage_materials_body": "Dukora n'inzuzu zivuye mu mashyamba y'u Rwanda—mahogany, eucalyptus, pine na rosewood—zahiswe kubera imigozi, ukuramara n'ubushyuhe.",
+    "collage_cta_heading": "Ufite Icyo Wishakiye?",
+    "collage_cta_body": "Reba urutonde rwacu kugira ngo ubone ibyiyumvo, hanyuma utugemurire kuri WhatsApp kugira ngo utangire igiporisi cyawe.",
+    "collage_cta_link": "Reba Ibicuruzwa",
+    "collage_process_heading": "Uburyo Dukora",
+    "collage_process_body": "Tekereza. Kora. Rangira. Tanga. Intambwe zose zikorwa mu workshop yacu i Kigali n'uko ni n'intoki zifashe inzuzu. Tuguha amakuru kuva ku gishushanyo cya mbere kugeza ku gutangaza.",
+    "testimonials_heading": "Abakiriya Bacu Bavuga Iki",
+    "testimonials_pause": "Oharika ubuhamya",
+    "testimonials_play": "Komeza ubuhamya",
+    "banner_headline": "Igihangiro cy'Uburambe n'Uburangiranwa"
+  },
+  "about": {
+    "title": "Ibyerekeye Sons of Damascene",
+    "heading": "Workshop Yubatswe ku Gukora Buhoro Buhoro",
+    "body1": "Sons of Damascene yashinzwe i Kigali bufite intego imwe gusa: gukora fenituri izaramara ubuzimu. Abakora bacu bize uburambe bwabo binyuze mu myaka yo gukorana, basuzuma imigozi n'amashimo no gukora kugeza batangira gukora akazi kazunguruka inkuru.",
+    "body2": "Twizera ko fenituri nziza ireba ntirangurura. Icara mu cyumba bituje kandi nziza ikazidi gusimba imyaka.",
+    "values_heading": "Ibyo Tubaho Kubifatire",
+    "value_craft": "Uburambe",
+    "value_craft_body": "Buri mashimo akorwa n'intoki. Buri mbere ikarangiwa n'intoki. Ntidutinda.",
+    "value_durability": "Ukuramara",
+    "value_durability_body": "Dukoresha inzuzu zizaramara imyaka n'imishyikirano. Fenituri yacu ikozwe kugira ngo ihabwe abazasubiraho.",
+    "value_local": "Inzuzu z'Akarere",
+    "value_local_body": "Tuha agaciro mashyamba y'u Rwanda na ba muterankunga bemerewe, tugira uruhare mu buzima bw'ibidukikije.",
+    "process_heading": "Uburyo Dukora",
+    "closing": "Witegure gukora?",
+    "closing_cta": "Reba urutonde"
+  },
+  "craftsman": {
+    "title": "Umuhanga Wacu",
+    "heading": "Sobanukirwa Umukora",
+    "intro": "Intoki inyuma ya Sons of Damascene zafashe inzuzu imyaka irenze cumi n'itanu. Avutse i Kigali, yize binyuze mu gukorana n'inyangamugayo, umukora wacu w'ingenzi azanye uburambe bw'amaguru kuri buri kintu kituye akazi.",
+    "experience": "Imyaka irenga 15 y'uburambe",
+    "approach_heading": "Uburyo Bushingiye ku Gukora Buhoro Buhoro",
+    "approach_body": "Fenituri nziza ntishobora gukorwa vuba. Umukora wacu ahitamo ishati buri kimwe ku buryo bwawe, asuzuma imigozi n'ubukomere mbere y'uko akorwa. Inzego ni akazi kazaboneka neza imyaka myinshi.",
+    "tools_heading": "Ibikoresho n'Ibikoresho",
+    "tools_body": "Imbago, inzato, indashyikirwa na chisel bikorana n'ibikoresho by'ibikorwa by'ubu. Ihuriro ritanga kurangwa no gufatirwa. Turangira amavuta n'inzuki z'umwaka—nta plastike, nta isinthetic.",
+    "link": "Reba urutonde"
+  },
+  "products": {
+    "title": "Ibicuruzwa",
+    "heading": "Urutonde Rwacu",
+    "filter_all": "Byose",
+    "empty": "Ibintu bishya bizaza vuba.",
+    "price_request": "Igiciro rusange",
+    "sample_price": "Igiciro cy'ingero",
+    "loading": "Gushakisha ibicuruzwa…"
+  },
+  "product": {
+    "category": "Icyiciro",
+    "wood_type": "Ubwoko bw'inzuzu",
+    "dimensions": "Ingano",
+    "lead_time": "Igihe cy'intekerezo",
+    "whatsapp_btn": "Baza kuri WhatsApp",
+    "related": "Ushobora Gukunda",
+    "price_request": "Igiciro rusange",
+    "gallery_prev": "Ifoto ibanziriza",
+    "gallery_next": "Ifoto ikurikira"
+  },
+  "contact": {
+    "title": "Twandikire",
+    "heading": "Twandikire",
+    "address_heading": "Aderesi ya Workshop",
+    "phone_heading": "Telefoni",
+    "email_heading": "Imeli",
+    "hours_heading": "Amasaha yo Gufungura",
+    "form_heading": "Ohereza Ubutumwa",
+    "name": "Izina ryawe",
+    "contact_field": "Imeli cg nimero ya telefoni",
+    "message": "Ubutumwa bwawe",
+    "submit": "Ohereza Ubutumwa",
+    "success": "Murakoze! Tuzasubiza vuba.",
+    "error": "Hari ikindi cyabaye. Ongera ugerageze."
+  },
+  "footer": {
+    "tagline": "Fenituri ikozwe n'intoki i Kigali, u Rwanda.",
+    "links_heading": "Ibyubahiro",
+    "copyright": "© 2025 Sons of Damascene. Uburenganzira bwose burinzwe."
+  },
+  "lang": {
+    "en": "Icyongereza",
+    "rw": "Ikinyarwanda",
+    "fr": "Igifaransa",
+    "changed": "Ururimi rwahinduwe kuri {{lang}}"
+  },
+  "admin": {
+    "login_heading": "Injira nk'Umuyobozi",
+    "email": "Imeli",
+    "password": "Ijambo ry'ibanga",
+    "sign_in": "Injira",
+    "sign_out": "Sohoka",
+    "dashboard": "Icyambara",
+    "products": "Ibicuruzwa",
+    "testimonials": "Ubushingire",
+    "settings": "Igenamiterere",
+    "add_product": "Ongeraho Igicuruzwa",
+    "edit_product": "Hindura Igicuruzwa",
+    "delete_confirm": "Uremeza gusiba ibi? Ntibishobora gusubizwa.",
+    "save": "Bika",
+    "cancel": "Reka",
+    "delete": "Siba",
+    "publish": "Sohereza",
+    "unpublish": "Subira inyuma",
+    "feature": "Shyira imbere",
+    "unfeature": "Kuraho gushyira imbere",
+    "search": "Shakisha…",
+    "upload_images": "Shyira amafoto",
+    "cover": "Ifoto Nkuru",
+    "set_cover": "Shyira nk'ifoto nkuru",
+    "enquiries": "Ibibazo",
+    "no_enquiries": "Nta bibazo bihari.",
+    "saved": "Byabitswe.",
+    "error": "Hari ikindi cyabaye."
+  },
+  "placeholder": {
+    "photo": "Ifoto izaza vuba"
+  },
+  "seo": {
+    "home_title": "Sons of Damascene – Fenituri Ikozwe n'Intoki i Kigali, u Rwanda",
+    "home_desc": "Ibitanda, ameza, intebe n'ibibyoroshye bikorwa ku giciro rusange i Kigali, u Rwanda.",
+    "products_title": "Ibicuruzwa – Sons of Damascene",
+    "products_desc": "Reba fenituri y'inzuzu ikozwe ku giciro rusange i Kigali, u Rwanda.",
+    "about_title": "Ibyerekeye – Sons of Damascene",
+    "craftsman_title": "Umuhanga Wacu – Sons of Damascene",
+    "contact_title": "Twandikire – Sons of Damascene"
+  }
+}

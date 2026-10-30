@@ -1,0 +1,387 @@
+/* ============================================================
+   Sons of Damascene – Global CSS & Design Tokens
+   ============================================================ */
+
+/* Google Fonts – DM Sans */
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap');
+
+@import "tailwindcss";
+
+/* ── Colour Tokens ─────────────────────────────────────────── */
+:root {
+  --cream:      #FBF6EA;
+  --orange:     #D9541E;
+  --teal:       #4F7568;
+  --sage:       #9DAE8A;
+  --salmon:     #EE9A8E;
+  --butter:     #FDEBB0;
+  --brown-900:  #3B2418;
+  --white:      #FFFFFF;
+  --line:       #E6DFCF;
+  --oak:        #C9A27A;
+  --walnut:     #6E4A33;
+  --ink:        #141010;
+}
+
+/* ── Tailwind Theme ─────────────────────────────────────────── */
+@theme {
+  --color-cream:     #FBF6EA;
+  --color-orange:    #D9541E;
+  --color-teal:      #4F7568;
+  --color-sage:      #9DAE8A;
+  --color-salmon:    #EE9A8E;
+  --color-butter:    #FDEBB0;
+  --color-brown-900: #3B2418;
+  --color-line:      #E6DFCF;
+  --color-oak:       #C9A27A;
+  --color-walnut:    #6E4A33;
+
+  --font-sans: 'DM Sans', sans-serif;
+
+  --max-w-content: 1200px;
+}
+
+/* ── Base Styles ─────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background-color: var(--cream);
+  color: var(--brown-900);
+  font-size: 15px;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+main {
+  margin: 0;
+  padding: 0;
+}
+
+/* Focus visible ring */
+:focus-visible {
+  outline: 2px solid var(--orange);
+  outline-offset: 3px;
+}
+
+/* Images */
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* ── Hero Section ────────────────────────────────────────── */
+/* Hero must stay full screen. Do not set vh heights elsewhere. */
+.hero {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  height: 100svh;
+  min-height: 560px;
+  max-height: none;
+  margin: 0;
+}
+
+.hero video,
+.hero img,
+.hero .hero-media {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ── Typography Helpers ──────────────────────────────────── */
+.hero-headline {
+  font-size: clamp(40px, 8vw, 96px);
+  font-weight: 500;
+  line-height: 1.0;
+  color: var(--white);
+  text-shadow: 0 1px 24px rgba(0, 0, 0, 0.25);
+}
+
+.section-heading {
+  font-size: clamp(24px, 3vw, 36px);
+  font-weight: 500;
+  color: var(--brown-900);
+}
+
+#testimonials-heading {
+  color: var(--white);
+}
+
+.footer-wordmark {
+  font-size: clamp(46px, 12vw, 56px);
+  font-weight: 600;
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  color: var(--brown-900);
+  overflow: visible;
+  text-overflow: clip;
+  white-space: normal;
+}
+
+@media (min-width: 640px) {
+  .footer-wordmark {
+    font-size: clamp(56px, 9vw, 128px);
+  }
+}
+
+/* ── Homepage Intro Section & Hero Spacing ───────────────── */
+.hero-content-inner {
+  padding-bottom: clamp(48px, 6vw, 96px);
+}
+
+.intro-section {
+  background-color: var(--cream);
+  padding-top: clamp(48px, 5vw, 80px);
+  padding-bottom: clamp(40px, 4.2vw, 64px);
+  border-bottom: 1px solid var(--line);
+}
+
+.intro-heading-text {
+  font-size: clamp(28px, 2.6vw, 40px);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  color: var(--brown-900);
+  text-wrap: balance;
+  padding-top: 2px;
+}
+
+.intro-body-text {
+  font-size: clamp(15px, 1.1vw, 16px);
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--brown-900);
+  max-width: 75ch;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* ── Homepage Editorial Collage Section ───────────────────── */
+.collage-section {
+  background-color: var(--cream);
+  padding-top: clamp(48px, 5vw, 80px);
+  padding-bottom: 64px;
+  border-bottom: 1px solid var(--line);
+}
+
+.collage-heading {
+  font-size: clamp(26px, 2.3vw, 34px);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  color: var(--brown-900);
+  white-space: nowrap;
+}
+
+.collage-panel-title {
+  font-size: clamp(18px, 1.35vw, 20px);
+  font-weight: 600;
+  line-height: 1.1;
+  max-width: 70%;
+  color: var(--panel-title-color, var(--brown-900));
+}
+
+.collage-panel-body {
+  font-size: clamp(12.5px, 0.9vw, 13.5px);
+  font-weight: 400;
+  line-height: 1.4;
+  max-width: 85%;
+  color: var(--panel-body-color, var(--brown-900));
+}
+
+/* Panel Color Modifiers (combining background & text colours together) */
+.collage-panel--oak {
+  background-color: var(--oak);
+  --panel-title-color: var(--brown-900);
+  --panel-body-color: var(--brown-900);
+}
+
+.collage-panel--walnut {
+  background-color: var(--walnut);
+  --panel-title-color: var(--white);
+  --panel-body-color: var(--cream);
+}
+
+.collage-panel--ink {
+  background-color: var(--ink);
+  --panel-title-color: var(--white);
+  --panel-body-color: var(--cream);
+  --panel-link-color: var(--white);
+  --panel-link-focus-outline: var(--cream);
+}
+
+/* --butter kept for any other usage; ink panel replaces it in the collage */
+.collage-panel--butter {
+  background-color: var(--butter);
+  --panel-title-color: var(--brown-900);
+  --panel-body-color: var(--brown-900);
+  --panel-link-color: var(--brown-900);
+  --panel-link-focus-outline: var(--brown-900);
+}
+
+/* CTA link inside any collage panel — colours driven by the panel modifier */
+.collage-panel-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--panel-link-color, var(--brown-900));
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  transition: color 0.15s, gap 0.15s;
+  outline-offset: 3px;
+}
+
+.collage-panel-link:hover {
+  gap: 8px; /* arrow shifts 4px right via increased gap */
+}
+
+.collage-panel-link:focus-visible {
+  outline: 2px solid var(--panel-link-focus-outline, var(--brown-900));
+  border-radius: 1px;
+}
+
+/* ── Testimonials Infinite Marquee & Stack Animation ───────── */
+@keyframes testimonialsMarquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.testimonials-marquee-track {
+  display: flex;
+  width: max-content;
+  gap: 24px;
+  animation: testimonialsMarquee 48s linear infinite;
+  will-change: transform;
+}
+
+.testimonials-marquee-track.paused,
+.testimonials-wrapper:hover .testimonials-marquee-track,
+.testimonials-wrapper:focus-within .testimonials-marquee-track,
+.testimonials-wrapper:active .testimonials-marquee-track {
+  animation-play-state: paused;
+}
+
+.testimonials-mask {
+  mask-image: linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%);
+}
+
+/* ── Homepage Banner ─────────────────────────────────────── */
+.home-banner {
+  aspect-ratio: 4 / 3;
+  min-height: 380px;
+}
+
+@media (min-width: 1024px) {
+  .home-banner {
+    aspect-ratio: 2 / 1;
+    max-height: 580px;
+  }
+}
+
+.home-banner-headline {
+  font-weight: 500;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+  color: var(--white);
+  font-size: clamp(28px, 6vw, 34px);
+  max-width: 85%;
+}
+
+@media (min-width: 768px) {
+  .home-banner-headline {
+    font-size: clamp(32px, 4.2vw, 60px);
+    max-width: 38%;
+  }
+}
+
+/* ── Layout ──────────────────────────────────────────────── */
+.content-max {
+  max-width: 1200px;
+  margin-inline: auto;
+  padding-inline: clamp(16px, 4vw, 48px);
+}
+
+.section-gap {
+  padding-block: clamp(40px, 6vw, 96px);
+}
+
+/* ── Dividers ─────────────────────────────────────────────── */
+.divider {
+  border: none;
+  border-top: 1px solid var(--line);
+}
+
+/* ── Transitions ─────────────────────────────────────────── */
+.img-zoom img {
+  transition: transform 0.4s ease;
+}
+.img-zoom:hover img {
+  transform: scale(1.04);
+}
+
+/* ── Reduced Motion ─────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* ── Skeleton loader ─────────────────────────────────────── */
+@keyframes shimmer {
+  0%   { background-position: -400px 0; }
+  100% { background-position: 400px 0; }
+}
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--line) 25%,
+    #ede8dc 50%,
+    var(--line) 75%
+  );
+  background-size: 800px 100%;
+  animation: shimmer 1.4s infinite linear;
+}
+
+/* ── Scroll-reveal animation ──────────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}

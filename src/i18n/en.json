@@ -1,0 +1,147 @@
+{
+  "nav": {
+    "about": "About",
+    "products": "Products",
+    "craftsman": "Our Craftsman",
+    "contact": "Contact",
+    "menu": "Menu",
+    "close": "Close menu"
+  },
+  "hero": {
+    "line1": "Handcrafted",
+    "line2": "in Kigali,",
+    "line3": "Made to Last."
+  },
+  "home": {
+    "intro_heading": "Furniture Born from Patience and Craft",
+    "intro_body1": "Sons of Damascene is a family-run workshop in Kigali, Rwanda. We design and build custom beds, tables, chairs, storage and one-of-a-kind pieces—each one made with locally sourced timber and finished by hand.",
+    "intro_body2": "Every piece starts with a conversation. Tell us what you have in mind, and we will bring it to life.",
+    "categories_heading": "Browse by Category",
+    "collage_materials_heading": "Local Wood, Lasting Character",
+    "collage_section_heading": "From our workshop",
+    "collage_materials_body": "We work with sustainably harvested timber from Rwandan forests—mahogany, eucalyptus, pine and rosewood—chosen for grain, durability and warmth. No veneers. No shortcuts.",
+    "collage_cta_heading": "Have a Piece in Mind?",
+    "collage_cta_body": "Browse our collection for inspiration, then get in touch on WhatsApp to start your custom order.",
+    "collage_cta_link": "Explore Products",
+    "collage_process_heading": "Our Process",
+    "collage_process_body": "Design. Craft. Finish. Deliver. Every step is handled in our Kigali workshop by the same hands that shaped the wood. We keep you informed from first sketch to final delivery.",
+    "testimonials_heading": "What Our Clients Say",
+    "testimonials_pause": "Pause testimonials",
+    "testimonials_play": "Play testimonials",
+    "banner_headline": "The Perfect Balance of Craft and Comfort"
+  },
+  "about": {
+    "title": "About Sons of Damascene",
+    "heading": "A Workshop Built on Patience",
+    "body1": "Sons of Damascene was founded in Kigali with one purpose: to make furniture that lasts a lifetime. Our craftsmen learned their trade through years of practice, studying grain and joint and finish until they could produce work that tells a story.",
+    "body2": "We believe that good furniture does not shout. It sits quietly in a room and grows more beautiful with age. We build to that standard, piece by piece.",
+    "values_heading": "What We Stand For",
+    "value_craft": "Craft",
+    "value_craft_body": "Every joint is hand-cut. Every surface is hand-finished. We do not rush.",
+    "value_durability": "Durability",
+    "value_durability_body": "We use timber that will outlast trends and fashions. Our furniture is made to be handed down.",
+    "value_local": "Local Wood",
+    "value_local_body": "We source responsibly from Rwandan forests and certified suppliers, supporting the local ecosystem.",
+    "process_heading": "How We Work",
+    "closing": "Ready to find your piece?",
+    "closing_cta": "Browse the collection"
+  },
+  "craftsman": {
+    "title": "Our Craftsman",
+    "heading": "Meet the Maker",
+    "intro": "The hands behind Sons of Damascene have shaped wood for over fifteen years. Born in Kigali, trained through apprenticeship and practice, our lead craftsman brings a quiet dedication to every piece that leaves the workshop.",
+    "experience": "15+ years of experience",
+    "approach_heading": "An Approach Rooted in Patience",
+    "approach_body": "Good furniture cannot be hurried. Our craftsman selects each board personally, checking grain and moisture before a single cut is made. The result is work that will still look beautiful decades from now.",
+    "tools_heading": "Tools and Materials",
+    "tools_body": "Hand planes, chisels, mortise saws and draw knives sit alongside modern joinery tools. The combination gives us both precision and character. We finish with natural oils and waxes—nothing plastic, nothing synthetic.",
+    "link": "See the collection"
+  },
+  "products": {
+    "title": "Products",
+    "heading": "Our Collection",
+    "filter_all": "All",
+    "empty": "New pieces coming soon.",
+    "price_request": "Price on request",
+    "sample_price": "Sample price",
+    "loading": "Loading products…"
+  },
+  "product": {
+    "category": "Category",
+    "wood_type": "Wood type",
+    "dimensions": "Dimensions",
+    "lead_time": "Lead time",
+    "whatsapp_btn": "Enquire on WhatsApp",
+    "related": "You May Also Like",
+    "price_request": "Price on request",
+    "gallery_prev": "Previous image",
+    "gallery_next": "Next image"
+  },
+  "contact": {
+    "title": "Contact",
+    "heading": "Get in Touch",
+    "address_heading": "Workshop Address",
+    "phone_heading": "Phone",
+    "email_heading": "Email",
+    "hours_heading": "Opening Hours",
+    "form_heading": "Send a Message",
+    "name": "Your name",
+    "contact_field": "Email or phone number",
+    "message": "Your message",
+    "submit": "Send Message",
+    "success": "Thank you! We will be in touch soon.",
+    "error": "Something went wrong. Please try again."
+  },
+  "footer": {
+    "tagline": "Handcrafted furniture from Kigali, Rwanda.",
+    "links_heading": "Pages",
+    "copyright": "© 2025 Sons of Damascene. All rights reserved."
+  },
+  "lang": {
+    "en": "English",
+    "rw": "Kinyarwanda",
+    "fr": "French",
+    "changed": "Language changed to {{lang}}"
+  },
+  "admin": {
+    "login_heading": "Admin Login",
+    "email": "Email address",
+    "password": "Password",
+    "sign_in": "Sign In",
+    "sign_out": "Sign Out",
+    "dashboard": "Dashboard",
+    "products": "Products",
+    "testimonials": "Testimonials",
+    "settings": "Settings",
+    "add_product": "Add Product",
+    "edit_product": "Edit Product",
+    "delete_confirm": "Are you sure you want to delete this? This cannot be undone.",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "publish": "Publish",
+    "unpublish": "Unpublish",
+    "feature": "Feature",
+    "unfeature": "Remove feature",
+    "search": "Search…",
+    "upload_images": "Upload images",
+    "cover": "Cover",
+    "set_cover": "Set as cover",
+    "enquiries": "Enquiries",
+    "no_enquiries": "No enquiries yet.",
+    "saved": "Saved.",
+    "error": "Something went wrong."
+  },
+  "placeholder": {
+    "photo": "Photo coming soon"
+  },
+  "seo": {
+    "home_title": "Sons of Damascene – Handcrafted Furniture in Kigali, Rwanda",
+    "home_desc": "Custom beds, tables, chairs and storage handcrafted in Kigali, Rwanda. Browse our collection and enquire on WhatsApp.",
+    "products_title": "Products – Sons of Damascene",
+    "products_desc": "Browse handcrafted wooden furniture made to order in Kigali, Rwanda.",
+    "about_title": "About – Sons of Damascene",
+    "craftsman_title": "Our Craftsman – Sons of Damascene",
+    "contact_title": "Contact – Sons of Damascene"
+  }
+}
