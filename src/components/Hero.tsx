@@ -83,7 +83,7 @@ export default function Hero({ videoUrl, posterUrl, overlayOpacity }: HeroProps)
 
       {/* ── Content ── */}
       <div className="relative content-max h-full flex flex-col justify-end hero-content-inner">
-        <h1 className="hero-headline max-w-2xl">
+        <h1 className="hero-headline font-display max-w-2xl">
           {t('hero.line1')}<br />
           {t('hero.line2')}<br />
           {t('hero.line3')}

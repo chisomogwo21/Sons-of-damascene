@@ -30,7 +30,7 @@ export default function AdminLogin() {
   return (
     <div className="min-h-screen bg-[#FBF6EA] flex items-center justify-center px-4">
       <div className="w-full max-w-sm">
-        <h1 className="text-2xl font-medium text-[#3B2418] mb-8">{t('admin.login_heading')}</h1>
+        <h1 className="text-2xl font-normal text-[#3B2418] mb-8">{t('admin.login_heading')}</h1>
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <div>
             <label htmlFor="admin-email" className="sr-only">{t('admin.email')}</label>
@@ -62,7 +62,7 @@ export default function AdminLogin() {
           <button
             type="submit"
             disabled={loading}
-            className="bg-[#3B2418] text-white py-3 text-sm font-medium hover:bg-[#D9541E] transition-colors disabled:opacity-50"
+            className="bg-[#3B2418] text-white py-3 text-sm font-normal hover:bg-[#D9541E] transition-colors disabled:opacity-50"
           >
             {loading ? '…' : t('admin.sign_in')}
           </button>

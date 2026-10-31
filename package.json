@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "prebuild": "node scripts/export-content.mjs",
-    "build": "tsc -b && vite build",
+    "build": "node scripts/check-fonts.mjs && tsc -b && vite build",
     "postbuild": "node scripts/generate-routes.mjs",
     "export": "node scripts/export-content.mjs",
     "routes": "node scripts/generate-routes.mjs",

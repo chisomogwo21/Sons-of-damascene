@@ -213,7 +213,7 @@ export default function SiteImageSlot({
     <div className="flex flex-col bg-[#FAF7EE] border border-[#E6DFCF] p-4 transition-colors">
       {/* Header */}
       <div className="mb-2">
-        <h4 className="text-sm font-medium text-[#3B2418]">{title}</h4>
+        <h4 className="text-sm font-normal text-[#3B2418]">{title}</h4>
         {subtitle && <p className="text-xs text-[#8a7060] mt-0.5">{subtitle}</p>}
       </div>
 
@@ -250,21 +250,21 @@ export default function SiteImageSlot({
               <circle cx="9" cy="9" r="2" />
               <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21" />
             </svg>
-            <span className="text-xs font-medium text-[#3B2418]">No photo uploaded</span>
+            <span className="text-xs font-normal text-[#3B2418]">No photo uploaded</span>
             <span className="text-[11px] text-[#8a7060] mt-0.5">Drop photo or click to choose</span>
           </div>
         )}
 
         {/* Dragging state overlay */}
         {isDragActive && (
-          <div className="absolute inset-0 bg-[#3B2418]/70 flex items-center justify-center text-white text-xs font-medium z-10">
+          <div className="absolute inset-0 bg-[#3B2418]/70 flex items-center justify-center text-white text-xs font-normal z-10">
             Drop photo here
           </div>
         )}
 
         {/* Uploading loading overlay */}
         {uploading && (
-          <div className="absolute inset-0 bg-[#3B2418]/80 flex flex-col items-center justify-center text-white text-xs font-medium z-20 gap-2">
+          <div className="absolute inset-0 bg-[#3B2418]/80 flex flex-col items-center justify-center text-white text-xs font-normal z-20 gap-2">
             <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
             <span>Compressing & uploading…</span>
           </div>
@@ -280,7 +280,7 @@ export default function SiteImageSlot({
           type="button"
           onClick={open}
           disabled={uploading || removing}
-          className="px-3 py-1.5 text-xs font-medium bg-[#3B2418] text-white hover:bg-[#D9541E] transition-colors disabled:opacity-50"
+          className="px-3 py-1.5 text-xs font-normal bg-[#3B2418] text-white hover:bg-[#D9541E] transition-colors disabled:opacity-50"
         >
           {uploading ? 'Uploading…' : currentUrl ? 'Replace photo' : 'Upload photo'}
         </button>
@@ -289,12 +289,12 @@ export default function SiteImageSlot({
           <>
             {confirmingRemove ? (
               <div className="flex items-center gap-1.5 bg-white border border-[#D9541E] px-2 py-1">
-                <span className="text-[11px] text-[#D9541E] font-medium">Remove photo?</span>
+                <span className="text-[11px] text-[#D9541E] font-normal">Remove photo?</span>
                 <button
                   type="button"
                   onClick={handleRemove}
                   disabled={removing}
-                  className="px-2 py-0.5 text-[11px] font-medium bg-[#D9541E] text-white hover:bg-[#b84314] transition-colors disabled:opacity-50"
+                  className="px-2 py-0.5 text-[11px] font-normal bg-[#D9541E] text-white hover:bg-[#b84314] transition-colors disabled:opacity-50"
                 >
                   {removing ? '…' : 'Yes'}
                 </button>
@@ -312,7 +312,7 @@ export default function SiteImageSlot({
                 type="button"
                 onClick={() => setConfirmingRemove(true)}
                 disabled={uploading || removing}
-                className="px-3 py-1.5 text-xs font-medium border border-[#E6DFCF] bg-white text-[#8a7060] hover:text-[#D9541E] hover:border-[#D9541E] transition-colors disabled:opacity-50"
+                className="px-3 py-1.5 text-xs font-normal border border-[#E6DFCF] bg-white text-[#8a7060] hover:text-[#D9541E] hover:border-[#D9541E] transition-colors disabled:opacity-50"
               >
                 Remove
               </button>
@@ -323,7 +323,7 @@ export default function SiteImageSlot({
 
       {/* Alt text field */}
       <div className="mt-auto pt-2 border-t border-[#E6DFCF]/60">
-        <label className="block text-[11px] font-medium text-[#8a7060] mb-1">
+        <label className="block text-[11px] font-normal text-[#8a7060] mb-1">
           Describe this photo
         </label>
         <input

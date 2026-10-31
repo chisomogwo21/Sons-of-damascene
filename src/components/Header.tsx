@@ -50,11 +50,11 @@ export default function Header({ heroHeight = 0 }: { heroHeight?: number }) {
         )}
 
         <div className="content-max flex items-center justify-between h-16 md:h-20">
-          {/* Wordmark */}
+          {/* Wordmark – DM Sans, weight 600 */}
           <Link
             to="/"
             style={isLight ? { textShadow: '0 1px 24px rgba(0,0,0,0.25)' } : undefined}
-            className={`font-bold text-sm md:text-base tracking-tight transition-colors leading-tight ${
+            className={`font-wordmark text-sm md:text-base tracking-tight transition-colors leading-tight ${
               isLight ? 'text-white' : 'text-[#3B2418]'
             }`}
             aria-label="Sons of Damascene – home"
@@ -73,7 +73,8 @@ export default function Header({ heroHeight = 0 }: { heroHeight?: number }) {
                 to={l.to}
                 style={isLight ? { textShadow: '0 1px 24px rgba(0,0,0,0.25)' } : undefined}
                 className={({ isActive }: { isActive: boolean }) =>
-                  `text-sm font-medium transition-colors border-b border-transparent ${
+                  /* Supreme 400, hierarchy via underline not weight */
+                  `text-sm font-normal transition-colors border-b border-transparent ${
                     isLight
                       ? `text-white hover:text-white/80 ${isActive ? 'border-white' : ''}`
                       : `text-[#3B2418] hover:text-[#D9541E] ${isActive ? 'border-[#D9541E] text-[#D9541E]' : ''}`
@@ -127,7 +128,7 @@ export default function Header({ heroHeight = 0 }: { heroHeight?: number }) {
               key={l.to}
               to={l.to}
               onClick={() => setOpen(false)}
-              className="text-3xl font-medium text-[#3B2418] hover:text-[#D9541E] transition-colors border-b border-[#E6DFCF] pb-4"
+              className="text-3xl font-normal text-[#3B2418] hover:text-[#D9541E] transition-colors border-b border-[#E6DFCF] pb-4"
             >
               {t(l.key)}
             </Link>

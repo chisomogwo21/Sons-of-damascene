@@ -17,15 +17,29 @@ This guide walks you through deploying the Sons of Damascene website to GitHub P
 ---
 
 ### 3. Configure Repository Secrets
-Navigate to **Settings** → **Secrets and variables** → **Actions** → **Secrets tab**, and add the following three repository secrets:
+Navigate to **Settings** → **Secrets and variables** → **Actions** → **Secrets tab**, and add the following repository secrets:
 
 | Secret Name | Value | Description |
 | :--- | :--- | :--- |
 | `SUPABASE_URL` | `https://<your-project>.supabase.co` | Your Supabase project URL |
 | `SUPABASE_ANON_KEY` | `eyJ...` | Your Supabase anon / public API key |
 | `VITE_WEB3FORMS_KEY` | `your_web3forms_access_key` | Access key from [web3forms.com](https://web3forms.com) for contact submissions |
+| `FONT_BESPOKE_STENCIL_BOLD` | Base64 string of `BespokeStencil-Bold.woff2` | Licensed Fontshare display font |
+| `FONT_SUPREME_REGULAR` | Base64 string of `Supreme-Regular.woff2` | Licensed Fontshare body font |
 
-> **Security Reminder:** Never commit `.env` files or real credentials into the repository. The `.gitignore` is configured to keep credentials out of version control.
+#### How to Encode Font Files in PowerShell
+To encode a font file into base64 and copy it directly to your clipboard on Windows:
+
+```powershell
+# Bespoke Stencil Bold:
+[Convert]::ToBase64String([IO.File]::ReadAllBytes("public/fonts/BespokeStencil-Bold.woff2")) | Set-Clipboard
+
+# Supreme Regular:
+[Convert]::ToBase64String([IO.File]::ReadAllBytes("public/fonts/Supreme-Regular.woff2")) | Set-Clipboard
+```
+Then paste each base64 string into its respective GitHub secret value field.
+
+> **Font Licensing & Security Reminder:** Bespoke Stencil and Supreme are licensed under the ITF Free Font License, which forbids redistributing font binary files through a public git repository. The `.gitignore` prevents font files and archives from ever being committed (`public/fonts/`, `*.woff2`, `*.woff`, `*.otf`, etc.). The deployment pipeline restores them into `public/fonts/` at build time from your GitHub Actions secrets. Never commit `.env` files or font binaries into the repository.
 
 ---
 

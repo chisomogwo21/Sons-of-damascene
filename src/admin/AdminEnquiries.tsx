@@ -15,7 +15,7 @@ export default function AdminEnquiries() {
 
   return (
     <div>
-      <h1 className="text-xl font-medium text-[#3B2418] mb-6">{t('admin.enquiries')}</h1>
+      <h1 className="text-xl font-normal text-[#3B2418] mb-6">{t('admin.enquiries')}</h1>
       {loading ? (
         <div className="space-y-3">
           {Array.from({ length: 4 }).map((_, i) => <div key={i} className="skeleton h-16 rounded" />)}
@@ -27,7 +27,7 @@ export default function AdminEnquiries() {
           {enquiries.map((e) => (
             <div key={e.id} className="px-5 py-4 space-y-1">
               <div className="flex items-center justify-between gap-4">
-                <p className="text-sm font-medium text-[#3B2418]">{e.name}</p>
+                <p className="text-sm font-normal text-[#3B2418]">{e.name}</p>
                 <p className="text-xs text-[#8a7060]">
                   {new Date(e.created_at).toLocaleDateString()}
                 </p>

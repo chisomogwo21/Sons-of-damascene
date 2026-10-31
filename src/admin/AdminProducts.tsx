@@ -62,7 +62,7 @@ export default function AdminProducts() {
   return (
     <div>
       <div className="flex items-center justify-between mb-6 gap-4">
-        <h1 className="text-xl font-medium text-[#3B2418]">{t('admin.products')}</h1>
+        <h1 className="text-xl font-normal text-[#3B2418]">{t('admin.products')}</h1>
         <Link
           to="/admin/products/new"
           className="bg-[#3B2418] text-white text-sm px-5 py-2.5 hover:bg-[#D9541E] transition-colors"
@@ -90,7 +90,7 @@ export default function AdminProducts() {
           {filtered.map((p) => (
             <div key={p.id} className="flex items-center gap-3 px-4 py-3 flex-wrap">
               <div className="flex-1 min-w-0">
-                <p className="text-sm font-medium text-[#3B2418] truncate">{p.name_en}</p>
+                <p className="text-sm font-normal text-[#3B2418] truncate">{p.name_en}</p>
                 <p className="text-xs text-[#8a7060]">{p.slug}</p>
               </div>
               <div className="flex items-center gap-2 flex-wrap">

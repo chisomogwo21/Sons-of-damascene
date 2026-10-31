@@ -80,7 +80,7 @@ export default function Contact() {
       <SEO title={t('seo.contact_title')} description={t('contact.heading')} />
       <div className="pt-[112px] md:pt-[128px]">
         <div className="content-max section-gap">
-          <h1 className="section-heading mb-10">{t('contact.heading')}</h1>
+          <h1 className="section-heading font-display mb-10">{t('contact.heading')}</h1>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16">
             {/* Info */}
@@ -108,9 +108,9 @@ export default function Contact() {
 
             {/* Form */}
             <div>
-              <h2 className="text-lg font-medium text-[#3B2418] mb-6">{t('contact.form_heading')}</h2>
+              <h2 className="text-lg font-normal text-[#3B2418] mb-6">{t('contact.form_heading')}</h2>
               {status === 'success' ? (
-                <div className="bg-[#9DAE8A] text-[#3B2418] p-6 text-sm font-medium">
+                <div className="bg-[#9DAE8A] text-[#3B2418] p-6 text-sm font-normal">
                   {t('contact.success')}
                 </div>
               ) : (
@@ -157,7 +157,7 @@ export default function Contact() {
                   <button
                     type="submit"
                     disabled={status === 'loading'}
-                    className="self-start px-8 py-3 bg-[#3B2418] text-white text-sm font-medium hover:bg-[#D9541E] transition-colors disabled:opacity-50"
+                    className="self-start px-8 py-3 bg-[#3B2418] text-white text-sm font-normal hover:bg-[#D9541E] transition-colors disabled:opacity-50"
                   >
                     {status === 'loading' ? '…' : t('contact.submit')}
                   </button>

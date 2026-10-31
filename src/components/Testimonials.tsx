@@ -83,7 +83,7 @@ export default function Testimonials({ testimonials }: TestimonialsProps) {
       <div className="content-max mb-8 md:mb-10">
         <h2
           id="testimonials-heading"
-          className="section-heading transition-opacity duration-500"
+          className="section-heading font-display transition-opacity duration-500"
           style={{ color: 'var(--white)', opacity: isReducedMotion || hasEntered ? 1 : 0 }}
         >
           {t('home.testimonials_heading')}
@@ -103,7 +103,7 @@ export default function Testimonials({ testimonials }: TestimonialsProps) {
                   "{getQuote(item)}"
                 </blockquote>
                 <figcaption className="text-white/80 text-xs md:text-sm">
-                  <cite className="not-italic font-medium text-white block">
+                  <cite className="not-italic font-normal text-white block">
                     {item.author_name}
                   </cite>
                   {item.author_location && (
@@ -144,7 +144,7 @@ export default function Testimonials({ testimonials }: TestimonialsProps) {
                     "{getQuote(item)}"
                   </blockquote>
                   <figcaption className="text-white/80 text-xs md:text-sm">
-                    <cite className="not-italic font-medium text-white block">
+                    <cite className="not-italic font-normal text-white block">
                       {item.author_name}
                     </cite>
                     {item.author_location && (

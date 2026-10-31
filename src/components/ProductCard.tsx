@@ -59,7 +59,7 @@ export default function ProductCard({ product, showSampleMarker = false }: Produ
             {(lang === 'rw' ? cat.name_rw : lang === 'fr' ? cat.name_fr : null) || cat.name_en}
           </p>
         )}
-        <h3 className="font-medium text-[#3B2418] text-base leading-snug mb-1">{name}</h3>
+        <h3 className="font-normal text-[#3B2418] text-base leading-snug mb-1">{name}</h3>
         <p className="text-sm text-[#8a7060]">
           {priceLabel}
           {showSampleMarker && product.price_amount !== null && (

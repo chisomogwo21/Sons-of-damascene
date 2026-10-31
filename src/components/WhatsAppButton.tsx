@@ -21,7 +21,7 @@ export default function WhatsAppButton({ phone, productName, productUrl }: Whats
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className="inline-flex items-center gap-3 bg-[#3B2418] text-white px-8 py-4 text-sm font-medium hover:bg-[#D9541E] transition-colors"
+      className="inline-flex items-center gap-3 bg-[#3B2418] text-white px-8 py-4 text-sm font-normal hover:bg-[#D9541E] transition-colors"
       aria-label={`${t('product.whatsapp_btn')} – ${productName}`}
     >
       {/* WhatsApp icon */}

@@ -60,7 +60,7 @@ export default function Products() {
       <div className="pt-[112px] md:pt-[128px] pb-16">
         <div className="content-max">
           {/* Page Heading (32px space below heading to filter chips) */}
-          <h1 className="section-heading mb-8">{t('products.heading')}</h1>
+          <h1 className="section-heading font-display mb-8">{t('products.heading')}</h1>
 
           {/* Category Filter Chips (Padding 8px 16px, gap 8px, 1px --line border, sentence case) */}
           {/* 32px space between chips and grid */}

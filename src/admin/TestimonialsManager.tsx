@@ -80,7 +80,7 @@ export default function TestimonialsManager() {
   return (
     <div>
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-xl font-medium text-[#3B2418]">{t('admin.testimonials')}</h1>
+        <h1 className="text-xl font-normal text-[#3B2418]">{t('admin.testimonials')}</h1>
         {!editing && (
           <button
             onClick={startAdd}
@@ -178,7 +178,7 @@ export default function TestimonialsManager() {
         {items.map((item) => (
           <div key={item.id} className="px-4 py-4 flex items-start gap-4 flex-wrap">
             <div className="flex-1 min-w-0">
-              <p className="text-sm font-medium text-[#3B2418]">{item.author_name}</p>
+              <p className="text-sm font-normal text-[#3B2418]">{item.author_name}</p>
               {item.author_location && (
                 <p className="text-xs text-[#8a7060]">{item.author_location}</p>
               )}

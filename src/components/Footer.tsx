@@ -82,7 +82,7 @@ export default function Footer({ instagram, facebook }: FooterProps) {
           
           {/* Left Column: Wordmark (2 lines) -> Social Icons -> Tagline */}
           <div className="w-full md:w-[55%]">
-            <h2 className="footer-wordmark">
+            <h2 className="footer-wordmark font-wordmark">
               Sons of<br />Damascene
             </h2>
 
@@ -127,7 +127,7 @@ export default function Footer({ instagram, facebook }: FooterProps) {
                 <li key={l.to} className="border-t border-[#E6DFCF]">
                   <Link
                     to={l.to}
-                    className="group flex items-center justify-between h-[44px] text-[16px] font-medium text-[#3B2418] hover:text-[#D9541E] transition-colors"
+                    className="group flex items-center justify-between h-[44px] text-[16px] font-normal text-[#3B2418] hover:text-[#D9541E] transition-colors"
                   >
                     <span className="transition-transform duration-200 group-hover:translate-x-1">
                       {t(l.key)}

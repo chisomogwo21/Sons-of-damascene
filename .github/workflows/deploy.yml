@@ -74,6 +74,16 @@ jobs:
             echo "deploy=true" >> "$GITHUB_OUTPUT"
           fi
 
+      - name: Restore licensed fonts from secrets
+        if: steps.should_deploy.outputs.deploy == 'true'
+        env:
+          FONT_BESPOKE_STENCIL_BOLD: ${{ secrets.FONT_BESPOKE_STENCIL_BOLD }}
+          FONT_SUPREME_REGULAR: ${{ secrets.FONT_SUPREME_REGULAR }}
+        run: |
+          mkdir -p public/fonts
+          echo "$FONT_BESPOKE_STENCIL_BOLD" | base64 -d > public/fonts/BespokeStencil-Bold.woff2
+          echo "$FONT_SUPREME_REGULAR" | base64 -d > public/fonts/Supreme-Regular.woff2
+
       - name: Build site
         if: steps.should_deploy.outputs.deploy == 'true'
         env:

@@ -8,6 +8,24 @@ interface CategoryGridProps {
   isLoading?: boolean
 }
 
+/** Small inline SVG arrow – replaces the → text character */
+function ArrowRight() {
+  return (
+    <svg
+      className="arrow-icon"
+      viewBox="0 0 16 16"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <path d="M2 8h12M9 3l5 5-5 5" />
+    </svg>
+  )
+}
+
 export default function CategoryGrid({ categories, isLoading = false }: CategoryGridProps) {
   const { t, i18n } = useTranslation()
   const lang = i18n.language.slice(0, 2) as 'en' | 'rw' | 'fr'
@@ -28,7 +46,7 @@ export default function CategoryGrid({ categories, isLoading = false }: Category
       {categories.length === 0 && !isLoading ? (
         <div className="py-12">
           <div className="p-8 text-center border border-[#E6DFCF] bg-[#FBF6EA]">
-            <p className="text-base font-medium text-[#3B2418]">
+            <p className="text-base font-normal text-[#3B2418]">
               {t('home.no_categories', 'No categories available at the moment.')}
             </p>
           </div>
@@ -63,9 +81,9 @@ export default function CategoryGrid({ categories, isLoading = false }: Category
                   )}
                 </div>
 
-                {/* Label: centred directly under image */}
+                {/* Label: centred directly under image — Supreme 400 */}
                 <div className="pb-5 px-4 text-center">
-                  <span className="text-[17px] font-medium text-[#3B2418] group-hover:underline underline-offset-4 transition-all">
+                  <span className="text-[17px] font-normal text-[#3B2418] group-hover:underline underline-offset-4 transition-all">
                     {categoryName}
                   </span>
                 </div>
@@ -80,11 +98,9 @@ export default function CategoryGrid({ categories, isLoading = false }: Category
               className="group flex flex-col items-center justify-center bg-[#FBF6EA] aspect-[1/0.8] p-6 text-center transition-colors"
               aria-label={t('home.all_pieces', allPiecesText)}
             >
-              <span className="text-[17px] font-medium text-[#3B2418] group-hover:underline underline-offset-4 flex items-center gap-1.5 transition-all">
+              <span className="text-[17px] font-normal text-[#3B2418] group-hover:underline underline-offset-4 flex items-center gap-1.5 transition-all">
                 {t('home.all_pieces', allPiecesText)}{' '}
-                <span className="inline-block transition-transform duration-200 group-hover:translate-x-1">
-                  →
-                </span>
+                <ArrowRight />
               </span>
             </Link>
           )}

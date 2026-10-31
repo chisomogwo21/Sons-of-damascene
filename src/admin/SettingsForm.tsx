@@ -112,11 +112,11 @@ export default function SettingsForm() {
 
   return (
     <div>
-      <h1 className="text-xl font-medium text-[#3B2418] mb-8">{t('admin.settings')}</h1>
+      <h1 className="text-xl font-normal text-[#3B2418] mb-8">{t('admin.settings')}</h1>
 
       {/* Hero media */}
       <div className="border border-[#E6DFCF] bg-white p-6 mb-8 space-y-6">
-        <h2 className="text-sm font-medium text-[#3B2418]">Hero Media</h2>
+        <h2 className="text-sm font-normal text-[#3B2418]">Hero Media</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
             <p className="text-xs text-[#8a7060] mb-2">Hero video (MP4 / WebM)</p>
@@ -152,7 +152,7 @@ export default function SettingsForm() {
             <div>
               <label
                 htmlFor="hero-overlay-darkness"
-                className="text-xs font-medium text-[#3B2418] block"
+                className="text-xs font-normal text-[#3B2418] block"
               >
                 Darkness over the video
               </label>
@@ -161,7 +161,7 @@ export default function SettingsForm() {
               </p>
             </div>
             <div className="text-right">
-              <span className="inline-block px-2.5 py-1 bg-[#FBF6EA] border border-[#E6DFCF] text-xs font-semibold text-[#3B2418] rounded font-mono">
+              <span className="inline-block px-2.5 py-1 bg-[#FBF6EA] border border-[#E6DFCF] text-xs font-normal text-[#3B2418] rounded font-mono">
                 {currentOpacity}%
               </span>
             </div>
@@ -188,7 +188,7 @@ export default function SettingsForm() {
 
           {/* Live preview strip showing the poster or video frame under the chosen darkness */}
           <div className="space-y-1.5">
-            <p className="text-[11px] font-medium text-[#8a7060] uppercase tracking-wider">
+            <p className="text-[11px] font-normal text-[#8a7060] uppercase tracking-wider">
               Live Preview Strip
             </p>
             <div
@@ -234,7 +234,7 @@ export default function SettingsForm() {
               {/* Sample headline showing readability */}
               <div className="relative z-10">
                 <p
-                  className="text-white font-medium text-lg sm:text-xl tracking-tight leading-snug"
+                  className="text-white font-normal text-lg sm:text-xl tracking-tight leading-snug"
                   style={{ textShadow: '0 1px 24px rgba(0,0,0,0.25)' }}
                 >
                   Handcrafted from Rwandan timber
@@ -254,7 +254,7 @@ export default function SettingsForm() {
       {/* Site images */}
       <div className="border border-[#E6DFCF] bg-white p-6 mb-8 space-y-8">
         <div>
-          <h2 className="text-sm font-medium text-[#3B2418]">Site images</h2>
+          <h2 className="text-sm font-normal text-[#3B2418]">Site images</h2>
           <p className="text-xs text-[#8a7060] mt-1">
             Replace placeholder photos across public pages. Images are compressed in your browser before upload.
           </p>
@@ -262,7 +262,7 @@ export default function SettingsForm() {
 
         {/* a) Homepage collage */}
         <div className="space-y-3">
-          <h3 className="text-xs font-semibold uppercase tracking-wider text-[#8a7060] pb-1 border-b border-[#E6DFCF]">
+          <h3 className="text-xs font-normal uppercase tracking-wider text-[#8a7060] pb-1 border-b border-[#E6DFCF]">
             Homepage collage
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -310,7 +310,7 @@ export default function SettingsForm() {
 
         {/* b) Homepage banner */}
         <div className="space-y-3">
-          <h3 className="text-xs font-semibold uppercase tracking-wider text-[#8a7060] pb-1 border-b border-[#E6DFCF]">
+          <h3 className="text-xs font-normal uppercase tracking-wider text-[#8a7060] pb-1 border-b border-[#E6DFCF]">
             Homepage banner
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -332,7 +332,7 @@ export default function SettingsForm() {
 
         {/* c) About page */}
         <div className="space-y-3">
-          <h3 className="text-xs font-semibold uppercase tracking-wider text-[#8a7060] pb-1 border-b border-[#E6DFCF]">
+          <h3 className="text-xs font-normal uppercase tracking-wider text-[#8a7060] pb-1 border-b border-[#E6DFCF]">
             About page
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
@@ -351,7 +351,7 @@ export default function SettingsForm() {
             />
           </div>
 
-          <h4 className="text-xs font-medium text-[#8a7060] pt-2">
+          <h4 className="text-xs font-normal text-[#8a7060] pt-2">
             About page process steps
           </h4>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -408,7 +408,7 @@ export default function SettingsForm() {
 
         {/* d) Our Craftsman page */}
         <div className="space-y-3">
-          <h3 className="text-xs font-semibold uppercase tracking-wider text-[#8a7060] pb-1 border-b border-[#E6DFCF]">
+          <h3 className="text-xs font-normal uppercase tracking-wider text-[#8a7060] pb-1 border-b border-[#E6DFCF]">
             Our Craftsman page
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -457,7 +457,7 @@ export default function SettingsForm() {
 
       {/* Other settings */}
       <form onSubmit={save} className="border border-[#E6DFCF] bg-white p-6 space-y-4">
-        <h2 className="text-sm font-medium text-[#3B2418] mb-4">Site settings</h2>
+        <h2 className="text-sm font-normal text-[#3B2418] mb-4">Site settings</h2>
         {SETTINGS_FIELDS.map((f) => (
           <div key={f.key}>
             <label className="block text-xs text-[#8a7060] mb-1">{f.label}</label>
@@ -472,7 +472,7 @@ export default function SettingsForm() {
         <button
           type="submit"
           disabled={saving}
-          className="bg-[#3B2418] text-white px-8 py-3 text-sm font-medium hover:bg-[#D9541E] transition-colors disabled:opacity-50 mt-4"
+          className="bg-[#3B2418] text-white px-8 py-3 text-sm font-normal hover:bg-[#D9541E] transition-colors disabled:opacity-50 mt-4"
         >
           {saving ? '…' : t('admin.save')}
         </button>

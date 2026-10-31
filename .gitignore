@@ -27,6 +27,15 @@ public/content.json
 # Database and SQL scripts (kept out of public repository)
 supabase/
 
+# Font files – licensed (ITF Free Font License) – NEVER commit to public repository
+public/fonts/
+FontshareKit*/
+*.woff2
+*.woff
+*.eot
+*.otf
+*.ttf
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

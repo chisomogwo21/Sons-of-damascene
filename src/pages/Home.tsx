@@ -78,7 +78,7 @@ export default function Home() {
           <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 md:gap-0">
             {/* Left Column (Heading - about 30% width) */}
             <div className="w-full md:w-[30%] reveal">
-              <h2 className="intro-heading-text">
+              <h2 className="intro-heading-text font-display">
                 {t('home.intro_heading')}
               </h2>
             </div>
@@ -157,7 +157,7 @@ export default function Home() {
 
               {/* Headline */}
               <div className="absolute inset-0 flex items-end md:items-center justify-end p-6 md:p-0 md:pr-[6%]">
-                <h2 className="home-banner-headline text-white text-right">
+                <h2 className="home-banner-headline font-display text-white text-right">
                   {t('home.banner_headline')}
                 </h2>
               </div>

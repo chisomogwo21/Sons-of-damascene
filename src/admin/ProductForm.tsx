@@ -148,7 +148,7 @@ export default function ProductForm() {
         >
           ← Back
         </button>
-        <h1 className="text-xl font-medium text-[#3B2418]">
+        <h1 className="text-xl font-normal text-[#3B2418]">
           {isNew ? t('admin.add_product') : t('admin.edit_product')}
         </h1>
       </div>
@@ -164,7 +164,7 @@ export default function ProductForm() {
                 onClick={() => setTab(l)}
                 className={`px-5 py-2.5 text-sm border-b-2 transition-colors ${
                   tab === l
-                    ? 'border-[#D9541E] text-[#D9541E] font-medium'
+                    ? 'border-[#D9541E] text-[#D9541E] font-normal'
                     : 'border-transparent text-[#8a7060] hover:text-[#3B2418]'
                 }`}
               >
@@ -300,7 +300,7 @@ export default function ProductForm() {
           <button
             onClick={handleSave}
             disabled={saving}
-            className="bg-[#3B2418] text-white px-8 py-3 text-sm font-medium hover:bg-[#D9541E] transition-colors disabled:opacity-50"
+            className="bg-[#3B2418] text-white px-8 py-3 text-sm font-normal hover:bg-[#D9541E] transition-colors disabled:opacity-50"
           >
             {saving ? '…' : t('admin.save')}
           </button>
@@ -308,7 +308,7 @@ export default function ProductForm() {
 
         {/* Right: images */}
         <div className="space-y-4">
-          <h2 className="text-sm font-medium text-[#3B2418]">Images</h2>
+          <h2 className="text-sm font-normal text-[#3B2418]">Images</h2>
 
           {/* Dropzone */}
           <div

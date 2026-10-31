@@ -61,7 +61,7 @@ export default function Placeholder({
           backgroundSize: '200px',
         }}
       />
-      <span className="relative text-[#8a7060] text-xs tracking-wide font-medium select-none">
+      <span className="relative text-[#8a7060] text-xs tracking-wide font-normal select-none">
         {label || t('placeholder.photo')}
       </span>
     </div>

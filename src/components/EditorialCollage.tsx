@@ -7,6 +7,24 @@ interface EditorialCollageProps {
   settings?: SiteSettings
 }
 
+/** Small inline SVG arrow — replaces the → text character */
+function ArrowRight() {
+  return (
+    <svg
+      className="arrow-icon"
+      viewBox="0 0 16 16"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <path d="M2 8h12M9 3l5 5-5 5" />
+    </svg>
+  )
+}
+
 export default function EditorialCollage({ settings }: EditorialCollageProps) {
   const { t } = useTranslation()
 
@@ -20,7 +38,7 @@ export default function EditorialCollage({ settings }: EditorialCollageProps) {
           <div className="flex flex-col w-full">
             {/* Section heading on 1 line with at least 32px clear space below */}
             <div className="pb-8 md:pb-0 md:h-[80px] lg:h-[88px] flex items-start">
-              <h2 className="collage-heading">
+              <h2 className="collage-heading font-display">
                 {t('home.collage_section_heading')}
               </h2>
             </div>
@@ -29,7 +47,7 @@ export default function EditorialCollage({ settings }: EditorialCollageProps) {
             <div className="collage-panel--oak relative w-full aspect-[1/1.7] max-h-[880px] overflow-hidden flex flex-col justify-between">
               {/* Text at top: 28px left/right padding, 44px top padding */}
               <div className="relative z-10 px-[28px] pt-[44px] flex flex-col gap-2.5">
-                <h3 className="collage-panel-title">
+                <h3 className="collage-panel-title font-display">
                   {t('home.collage_materials_heading')}
                 </h3>
                 <p className="collage-panel-body">
@@ -78,7 +96,7 @@ export default function EditorialCollage({ settings }: EditorialCollageProps) {
               {/* Ink panel below: ~43% height, same padding: 28px px, 44px pt */}
               <div className="collage-panel--ink w-full h-[43%] px-[28px] pt-[44px] pb-6 flex flex-col justify-between">
                 <div className="flex flex-col gap-2.5">
-                  <h3 className="collage-panel-title">
+                  <h3 className="collage-panel-title font-display">
                     {t('home.collage_cta_heading')}
                   </h3>
                   <p className="collage-panel-body">
@@ -90,7 +108,7 @@ export default function EditorialCollage({ settings }: EditorialCollageProps) {
                     to="/products"
                     className="collage-panel-link mt-2"
                   >
-                    {t('home.collage_cta_link')} <span aria-hidden="true">→</span>
+                    {t('home.collage_cta_link')} <ArrowRight />
                   </Link>
                 </div>
               </div>
@@ -106,7 +124,7 @@ export default function EditorialCollage({ settings }: EditorialCollageProps) {
             <div className="collage-panel--walnut relative w-full aspect-[1/1.7] max-h-[880px] overflow-hidden flex flex-col justify-between">
               {/* Text at top: 28px left/right padding, 44px top padding */}
               <div className="relative z-10 px-[28px] pt-[44px] flex flex-col gap-2.5">
-                <h3 className="collage-panel-title">
+                <h3 className="collage-panel-title font-display">
                   {t('home.collage_process_heading')}
                 </h3>
                 <p className="collage-panel-body">

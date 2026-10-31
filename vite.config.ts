@@ -9,6 +9,17 @@ export default defineConfig({
     modulePreload: false,
   },
   plugins: [
+    {
+      name: 'base-assets-rewrite',
+      configureServer(server) {
+        server.middlewares.use((req, _res, next) => {
+          if (req.url && req.url.startsWith('/Sons-of-damascene/')) {
+            req.url = req.url.replace('/Sons-of-damascene', '')
+          }
+          next()
+        })
+      },
+    },
     tailwindcss(),
     react(),
   ],

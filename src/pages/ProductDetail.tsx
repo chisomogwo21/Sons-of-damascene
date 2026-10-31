@@ -106,8 +106,8 @@ export default function ProductDetail() {
               {catName && (
                 <p className="text-xs text-[#8a7060] uppercase tracking-widest">{catName}</p>
               )}
-              <h1 className="section-heading">{name}</h1>
-              <p className="text-xl font-medium text-[#D9541E]">{priceLabel}</p>
+              <h1 className="section-heading font-display">{name}</h1>
+              <p className="text-xl font-normal text-[#D9541E]">{priceLabel}</p>
 
               {desc && (
                 <p className="text-sm leading-relaxed text-[#5c4434]">{desc}</p>
@@ -118,19 +118,19 @@ export default function ProductDetail() {
                 {product.wood_type && (
                   <div className="flex justify-between py-3">
                     <dt className="text-[#8a7060]">{t('product.wood_type')}</dt>
-                    <dd className="font-medium text-[#3B2418]">{product.wood_type}</dd>
+                    <dd className="font-normal text-[#3B2418]">{product.wood_type}</dd>
                   </div>
                 )}
                 {product.dimensions && (
                   <div className="flex justify-between py-3">
                     <dt className="text-[#8a7060]">{t('product.dimensions')}</dt>
-                    <dd className="font-medium text-[#3B2418]">{product.dimensions}</dd>
+                    <dd className="font-normal text-[#3B2418]">{product.dimensions}</dd>
                   </div>
                 )}
                 {product.lead_time_text && (
                   <div className="flex justify-between py-3">
                     <dt className="text-[#8a7060]">{t('product.lead_time')}</dt>
-                    <dd className="font-medium text-[#3B2418]">{product.lead_time_text}</dd>
+                    <dd className="font-normal text-[#3B2418]">{product.lead_time_text}</dd>
                   </div>
                 )}
               </dl>
@@ -149,7 +149,7 @@ export default function ProductDetail() {
           {/* Related products */}
           {related.length > 0 && (
             <section className="mt-16 md:mt-24 pt-10 border-t border-[#E6DFCF]">
-              <h2 className="section-heading mb-6">{t('product.related')}</h2>
+              <h2 className="section-heading font-display mb-6">{t('product.related')}</h2>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 {related.map((p) => (
                   <ProductCard key={p.id} product={p} />

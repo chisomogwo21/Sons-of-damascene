@@ -2,10 +2,29 @@
    Sons of Damascene – Global CSS & Design Tokens
    ============================================================ */
 
-/* Google Fonts – DM Sans */
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap');
-
+/* Google Fonts – DM Sans (wordmark only, weight 600) */
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@600&display=swap');
 @import "tailwindcss";
+
+/* ── Licensed Fontshare Fonts ─────────────────────────────── */
+/* Bespoke Stencil Bold: large display headings only            */
+/* Supreme Regular: all body / UI text                         */
+/* ITF Free Font License – do NOT subset, convert or commit    */
+@font-face {
+  font-family: "Bespoke Stencil";
+  src: url("/Sons-of-damascene/fonts/BespokeStencil-Bold.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Supreme";
+  src: url("/Sons-of-damascene/fonts/Supreme-Regular.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
 
 /* ── Colour Tokens ─────────────────────────────────────────── */
 :root {
@@ -21,6 +40,11 @@
   --oak:        #C9A27A;
   --walnut:     #6E4A33;
   --ink:        #141010;
+
+  /* ── Font Family Tokens ─────────────────────────────────── */
+  --font-display:  "Bespoke Stencil", "DM Sans", system-ui, sans-serif;
+  --font-body:     "Supreme", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-wordmark: "DM Sans", system-ui, sans-serif;
 }
 
 /* ── Tailwind Theme ─────────────────────────────────────────── */
@@ -36,7 +60,9 @@
   --color-oak:       #C9A27A;
   --color-walnut:    #6E4A33;
 
-  --font-sans: 'DM Sans', sans-serif;
+  /* Tailwind utilities pick up var() so both fonts are always available */
+  --font-sans:    var(--font-body);
+  --font-display: var(--font-display);
 
   --max-w-content: 1200px;
 }
@@ -52,10 +78,13 @@ html {
   scroll-behavior: smooth;
   margin: 0;
   padding: 0;
+  /* Prevent browser from synthesising italic or bold variants */
+  font-synthesis: none;
 }
 
 body {
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-body);
+  font-weight: 400;
   background-color: var(--cream);
   color: var(--brown-900);
   font-size: 15px;
@@ -64,6 +93,12 @@ body {
   padding: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* Prevent fake bold/italic rendering */
+b,
+strong {
+  font-weight: inherit;
 }
 
 main {
@@ -81,6 +116,20 @@ main {
 img {
   max-width: 100%;
   display: block;
+}
+
+/* ── Font-family utility classes ──────────────────────────── */
+
+/* Apply to any large heading that should use Bespoke Stencil */
+.font-display {
+  font-family: var(--font-display);
+  font-weight: 700;
+}
+
+/* Wordmark – always DM Sans, weight 600 */
+.font-wordmark {
+  font-family: var(--font-wordmark);
+  font-weight: 600;
 }
 
 /* ── Hero Section ────────────────────────────────────────── */
@@ -107,16 +156,21 @@ img {
 
 /* ── Typography Helpers ──────────────────────────────────── */
 .hero-headline {
-  font-size: clamp(40px, 8vw, 96px);
-  font-weight: 500;
+  font-family: var(--font-display);
+  font-weight: 700;
+  /* Bespoke Stencil is wider; reduce size slightly to prevent overflow */
+  font-size: clamp(36px, 7.4vw, 88px);
   line-height: 1.0;
+  letter-spacing: -0.01em;
   color: var(--white);
   text-shadow: 0 1px 24px rgba(0, 0, 0, 0.25);
 }
 
 .section-heading {
+  font-family: var(--font-display);
+  font-weight: 700;
   font-size: clamp(24px, 3vw, 36px);
-  font-weight: 500;
+  line-height: 1.1;
   color: var(--brown-900);
 }
 
@@ -124,9 +178,11 @@ img {
   color: var(--white);
 }
 
+/* Wordmark in the giant footer */
 .footer-wordmark {
-  font-size: clamp(46px, 12vw, 56px);
+  font-family: var(--font-wordmark);
   font-weight: 600;
+  font-size: clamp(46px, 12vw, 56px);
   line-height: 0.95;
   letter-spacing: -0.03em;
   color: var(--brown-900);
@@ -154,8 +210,10 @@ img {
 }
 
 .intro-heading-text {
-  font-size: clamp(28px, 2.6vw, 40px);
-  font-weight: 600;
+  font-family: var(--font-display);
+  font-weight: 700;
+  /* Stencil is heavier – trim slightly to stay on two lines */
+  font-size: clamp(26px, 2.4vw, 37px);
   line-height: 1.1;
   letter-spacing: -0.01em;
   color: var(--brown-900);
@@ -164,8 +222,9 @@ img {
 }
 
 .intro-body-text {
-  font-size: clamp(15px, 1.1vw, 16px);
+  font-family: var(--font-body);
   font-weight: 400;
+  font-size: clamp(15px, 1.1vw, 16px);
   line-height: 1.5;
   color: var(--brown-900);
   max-width: 75ch;
@@ -183,8 +242,10 @@ img {
 }
 
 .collage-heading {
-  font-size: clamp(26px, 2.3vw, 34px);
-  font-weight: 600;
+  font-family: var(--font-display);
+  font-weight: 700;
+  /* Stencil wider – reduce slightly and allow wrap at narrow desktop */
+  font-size: clamp(24px, 2.1vw, 31px);
   line-height: 1.1;
   letter-spacing: -0.01em;
   color: var(--brown-900);
@@ -192,16 +253,26 @@ img {
 }
 
 .collage-panel-title {
+  font-family: var(--font-display);
+  font-weight: 700;
   font-size: clamp(18px, 1.35vw, 20px);
-  font-weight: 600;
   line-height: 1.1;
   max-width: 70%;
   color: var(--panel-title-color, var(--brown-900));
 }
 
+@media (max-width: 639px) {
+  /* At 375px, title renders at 18px (under 22px threshold); switch to Supreme Regular */
+  .collage-panel-title {
+    font-family: var(--font-body);
+    font-weight: 400;
+  }
+}
+
 .collage-panel-body {
-  font-size: clamp(12.5px, 0.9vw, 13.5px);
+  font-family: var(--font-body);
   font-weight: 400;
+  font-size: clamp(12.5px, 0.9vw, 13.5px);
   line-height: 1.4;
   max-width: 85%;
   color: var(--panel-body-color, var(--brown-900));
@@ -242,8 +313,9 @@ img {
   display: inline-flex;
   align-items: center;
   gap: 4px;
+  font-family: var(--font-body);
+  font-weight: 400;
   font-size: 13px;
-  font-weight: 500;
   color: var(--panel-link-color, var(--brown-900));
   text-decoration: underline;
   text-underline-offset: 4px;
@@ -252,12 +324,137 @@ img {
 }
 
 .collage-panel-link:hover {
-  gap: 8px; /* arrow shifts 4px right via increased gap */
+  gap: 8px; /* arrow SVG shifts right via increased gap */
 }
 
 .collage-panel-link:focus-visible {
   outline: 2px solid var(--panel-link-focus-outline, var(--brown-900));
   border-radius: 1px;
+}
+
+/* ── Inline SVG Arrow (replaces → text character everywhere) ─ */
+.arrow-icon {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  vertical-align: middle;
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+}
+
+/* In a group/link context, the arrow nudges right on hover */
+.group:hover .arrow-icon,
+a:hover .arrow-icon,
+button:hover .arrow-icon {
+  transform: translateX(4px);
+}
+
+/* ── About "What We Stand For" Values Section ─────────────── */
+.values-section {
+  padding-top: clamp(56px, 6vw, 96px);
+  padding-bottom: clamp(56px, 6vw, 96px);
+}
+
+.values-heading {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(28px, 2.6vw, 40px);
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  color: var(--brown-900);
+  margin: 0 0 40px 0;
+  text-align: left;
+}
+
+.values-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  align-items: start;
+}
+
+@media (min-width: 768px) {
+  .values-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(16px, 1.5vw, 20px);
+  }
+}
+
+.values-panel {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 220px;
+  padding: clamp(28px, 2.6vw, 40px);
+  box-shadow: none;
+  border-radius: 0;
+  margin-top: 0;
+}
+
+@media (min-width: 768px) {
+  .values-panel {
+    min-height: clamp(300px, 27vw, 400px);
+  }
+
+  .values-panel:first-child,
+  .values-panel:last-child {
+    margin-top: 40px;
+  }
+}
+
+/* Panel Color Modifiers (combining background & text colours together) */
+.values-panel--oak {
+  background-color: var(--oak);
+  --values-panel-title-color: var(--brown-900);
+  --values-panel-text-color: var(--brown-900);
+}
+
+.values-panel--ink {
+  background-color: var(--ink);
+  --values-panel-title-color: var(--white);
+  --values-panel-text-color: var(--cream);
+}
+
+.values-panel--walnut {
+  background-color: var(--walnut);
+  --values-panel-title-color: var(--white);
+  --values-panel-text-color: var(--cream);
+}
+
+.values-panel-number {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 14px;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  color: var(--values-panel-text-color);
+  opacity: 0.7;
+  margin: 0;
+}
+
+.values-panel-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 1.1;
+  color: var(--values-panel-title-color);
+  margin: 0 0 12px 0;
+}
+
+@media (min-width: 768px) {
+  .values-panel-title {
+    font-size: clamp(22px, 2vw, 28px);
+  }
+}
+
+.values-panel-body {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 1.5;
+  max-width: 90%;
+  color: var(--values-panel-text-color);
+  margin: 0;
 }
 
 /* ── Testimonials Infinite Marquee & Stack Animation ───────── */
@@ -304,19 +501,21 @@ img {
 }
 
 .home-banner-headline {
-  font-weight: 500;
+  font-family: var(--font-display);
+  font-weight: 700;
   line-height: 1.05;
   letter-spacing: -0.01em;
   text-wrap: balance;
   color: var(--white);
-  font-size: clamp(28px, 6vw, 34px);
+  /* Stencil wider – trim ~5% from original clamp */
+  font-size: clamp(26px, 5.7vw, 32px);
   max-width: 85%;
 }
 
 @media (min-width: 768px) {
   .home-banner-headline {
-    font-size: clamp(32px, 4.2vw, 60px);
-    max-width: 38%;
+    font-size: clamp(30px, 4vw, 56px);
+    max-width: 42%;
   }
 }
 

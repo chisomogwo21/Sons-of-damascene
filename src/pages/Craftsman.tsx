@@ -5,6 +5,24 @@ import SEO from '../components/SEO'
 import Placeholder from '../components/Placeholder'
 import { fetchSiteSettings, type SiteSettings } from '../lib/content'
 
+/** Small inline SVG arrow – replaces → text character */
+function ArrowRight() {
+  return (
+    <svg
+      className="arrow-icon"
+      viewBox="0 0 16 16"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <path d="M2 8h12M9 3l5 5-5 5" />
+    </svg>
+  )
+}
+
 export default function Craftsman() {
   const { t } = useTranslation()
   const [settings, setSettings] = useState<SiteSettings>({})
@@ -39,9 +57,9 @@ export default function Craftsman() {
               <p className="text-xs text-[#8a7060] uppercase tracking-widest mb-3">
                 {t('craftsman.title')}
               </p>
-              <h1 className="section-heading mb-4">{t('craftsman.heading')}</h1>
+              <h1 className="section-heading font-display mb-4">{t('craftsman.heading')}</h1>
               <p className="text-[#5c4434] leading-relaxed mb-4">{t('craftsman.intro')}</p>
-              <p className="text-sm font-medium text-[#D9541E]">{t('craftsman.experience')}</p>
+              <p className="text-sm font-normal text-[#D9541E]">{t('craftsman.experience')}</p>
             </div>
           </div>
         </section>
@@ -49,7 +67,7 @@ export default function Craftsman() {
         {/* Approach */}
         <section className="section-gap bg-[#9DAE8A]">
           <div className="content-max max-w-2xl">
-            <h2 className="section-heading text-[#3B2418] mb-4">
+            <h2 className="section-heading font-display text-[#3B2418] mb-4">
               {t('craftsman.approach_heading')}
             </h2>
             <p className="text-[#3B2418]/80 leading-relaxed">
@@ -61,7 +79,7 @@ export default function Craftsman() {
         {/* Process photos */}
         <section className="section-gap">
           <div className="content-max">
-            <h2 className="section-heading mb-8">{t('craftsman.tools_heading')}</h2>
+            <h2 className="section-heading font-display mb-8">{t('craftsman.tools_heading')}</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
               <div className="relative overflow-hidden aspect-[4/3]">
                 {settings.craftsman_process_url ? (
@@ -105,9 +123,9 @@ export default function Craftsman() {
           <div className="content-max text-center">
             <Link
               to="/products"
-              className="inline-block px-10 py-4 border border-white text-white text-sm font-medium hover:bg-white hover:text-[#3B2418] transition-colors"
+              className="group inline-flex items-center gap-2 px-10 py-4 border border-white text-white text-sm font-normal hover:bg-white hover:text-[#3B2418] transition-colors"
             >
-              {t('craftsman.link')} →
+              {t('craftsman.link')} <ArrowRight />
             </Link>
           </div>
         </section>

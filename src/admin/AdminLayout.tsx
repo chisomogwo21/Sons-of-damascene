@@ -46,7 +46,7 @@ export default function AdminLayout() {
       {/* Admin top bar */}
       <header className="bg-[#3B2418] text-white px-4 md:px-8 py-3 flex items-center justify-between gap-2">
         <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
-          <Link to="/admin/products" className="font-medium text-sm">
+          <Link to="/admin/products" className="font-normal text-sm">
             Sons of Damascene — Admin
           </Link>
           <span className="text-xs text-white/60">
@@ -73,7 +73,7 @@ export default function AdminLayout() {
           <Link
             key={tab.path}
             to={tab.path}
-            className={`text-sm font-medium px-4 py-3 border-b-2 whitespace-nowrap transition-colors ${
+            className={`text-sm font-normal px-4 py-3 border-b-2 whitespace-nowrap transition-colors ${
               location.pathname.startsWith(tab.path)
                 ? 'border-[#D9541E] text-[#D9541E]'
                 : 'border-transparent text-[#8a7060] hover:text-[#3B2418]'

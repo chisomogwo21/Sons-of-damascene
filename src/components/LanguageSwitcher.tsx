@@ -29,9 +29,9 @@ export default function LanguageSwitcher({ light = false }: { light?: boolean })
           <button
             onClick={() => switchLang(l.code)}
             style={light ? { textShadow: '0 1px 24px rgba(0,0,0,0.25)' } : undefined}
-            className={`text-xs font-medium tracking-wider transition-all relative pb-0.5 ${textColor} ${hoverColor} ${
+            className={`text-xs font-normal tracking-wider transition-all relative pb-0.5 ${textColor} ${hoverColor} ${
               current === l.code
-                ? 'opacity-100 font-semibold'
+                ? 'opacity-100 font-normal'
                 : light
                 ? 'opacity-80 text-white'
                 : 'opacity-50'
