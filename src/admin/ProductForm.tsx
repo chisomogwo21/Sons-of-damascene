@@ -6,7 +6,8 @@ import toast from 'react-hot-toast'
 import {
   fetchAllProducts,
   fetchCategories,
-  upsertProduct,
+  createProduct,
+  updateProduct,
   addProductImage,
   deleteProductImage,
   setCoverImage,
@@ -18,6 +19,116 @@ import { uploadProductImage } from '../lib/imageResize'
 import { supabase } from '../lib/supabase'
 
 type LangTab = 'en' | 'rw' | 'fr'
+
+interface ErrorDetailResult {
+  detail: string
+  isJwtExpired: boolean
+}
+
+function parseErrorDetail(err: unknown): ErrorDetailResult {
+  const e = err as {
+    code?: string | number
+    status?: string | number
+    statusCode?: string | number
+    message?: string
+    error?: string | { message?: string }
+    error_description?: string
+    name?: string
+  }
+
+  const code = String(e?.code ?? e?.statusCode ?? e?.status ?? '').trim()
+  let msg = ''
+  if (typeof e?.message === 'string') {
+    msg = e.message
+  } else if (typeof e?.error === 'string') {
+    msg = e.error
+  } else if (typeof e?.error?.message === 'string') {
+    msg = e.error.message
+  } else if (typeof e?.error_description === 'string') {
+    msg = e.error_description
+  } else if (typeof err === 'string') {
+    msg = err
+  }
+  const lowerMsg = msg.toLowerCase()
+
+  // 1. JWT expired with redirect to login
+  if (
+    lowerMsg.includes('jwt expired') ||
+    lowerMsg.includes('token expired') ||
+    lowerMsg.includes('invalid jwt') ||
+    code === 'PGRST301' ||
+    (code === '401' && lowerMsg.includes('jwt'))
+  ) {
+    return {
+      detail: 'Your session has expired. Redirecting to login...',
+      isJwtExpired: true,
+    }
+  }
+
+  // 2. Duplicate slug 23505
+  if (
+    code === '23505' ||
+    lowerMsg.includes('23505') ||
+    lowerMsg.includes('duplicate key') ||
+    lowerMsg.includes('already exists')
+  ) {
+    return {
+      detail: 'A product with this slug already exists. Please choose a different slug.',
+      isJwtExpired: false,
+    }
+  }
+
+  // 3. RLS 42501 / 401 / 403
+  if (
+    code === '42501' ||
+    code === '401' ||
+    code === '403' ||
+    lowerMsg.includes('42501') ||
+    lowerMsg.includes('row-level security') ||
+    lowerMsg.includes('permission denied') ||
+    lowerMsg.includes('unauthorized') ||
+    lowerMsg.includes('forbidden')
+  ) {
+    return {
+      detail: 'Permission denied. Please check your admin privileges.',
+      isJwtExpired: false,
+    }
+  }
+
+  // 4. Network failure
+  if (
+    lowerMsg.includes('failed to fetch') ||
+    lowerMsg.includes('network') ||
+    lowerMsg.includes('connection') ||
+    e?.name === 'TypeError'
+  ) {
+    return {
+      detail: 'Network connection failure. Please check your internet connection.',
+      isJwtExpired: false,
+    }
+  }
+
+  // 5. Storage upload errors
+  if (
+    lowerMsg.includes('storage') ||
+    lowerMsg.includes('bucket') ||
+    lowerMsg.includes('payload too large') ||
+    lowerMsg.includes('entity too large') ||
+    lowerMsg.includes('upload')
+  ) {
+    return {
+      detail: 'Storage upload error. Please check the image file and storage bucket.',
+      isJwtExpired: false,
+    }
+  }
+
+  // 6. Otherwise shortened error message
+  const fallback = msg ? (msg.length > 80 ? msg.slice(0, 80) + '…' : msg) : 'An unexpected error occurred.'
+  return {
+    detail: fallback,
+    isJwtExpired: false,
+  }
+}
 
 const EMPTY: Partial<Product> = {
   name_en: '', name_rw: '', name_fr: '',
@@ -41,9 +152,28 @@ export default function ProductForm() {
   const [form, setForm] = useState<Partial<Product>>(EMPTY)
   const [categories, setCategories] = useState<Category[]>([])
   const [images, setImages] = useState<ProductImage[]>([])
+  const [pendingFiles, setPendingFiles] = useState<File[]>([])
   const [saving, setSaving] = useState(false)
   const [uploading, setUploading] = useState(false)
   const [priceOnRequest, setPriceOnRequest] = useState(false)
+
+  const showErrorToast = useCallback(
+    (title: string, err: unknown) => {
+      const { detail, isJwtExpired } = parseErrorDetail(err)
+      toast.error(
+        <div>
+          <div className="font-semibold text-sm">{title}</div>
+          <div className="text-xs text-[#8a7060] mt-0.5">{detail}</div>
+        </div>
+      )
+      if (isJwtExpired) {
+        setTimeout(() => {
+          navigate('/admin/login', { replace: true })
+        }, 1200)
+      }
+    },
+    [navigate]
+  )
 
   useEffect(() => {
     fetchCategories().then(setCategories)
@@ -69,48 +199,123 @@ export default function ProductForm() {
     setSaving(true)
     try {
       const payload: Partial<Product> = {
-        ...form,
-        slug: form.slug || slugify(form.name_en || ''),
-        price_amount: priceOnRequest ? null : form.price_amount,
+        slug: form.slug?.trim() || slugify(form.name_en || ''),
+        category_id: form.category_id || null,
+        name_en: form.name_en || '',
+        name_rw: form.name_rw || null,
+        name_fr: form.name_fr || null,
+        description_en: form.description_en || null,
+        description_rw: form.description_rw || null,
+        description_fr: form.description_fr || null,
+        wood_type: form.wood_type || null,
+        dimensions: form.dimensions || null,
+        lead_time_text: form.lead_time_text || null,
+        price_amount: priceOnRequest
+          ? null
+          : form.price_amount !== undefined && form.price_amount !== null && !isNaN(Number(form.price_amount))
+            ? Number(form.price_amount)
+            : null,
+        currency: form.currency || 'RWF',
+        is_published: Boolean(form.is_published),
+        is_featured: Boolean(form.is_featured),
+        sort_order: typeof form.sort_order === 'number' ? form.sort_order : 0,
       }
-      const saved = await upsertProduct(payload)
+
+      let saved: Product
+      if (isNew) {
+        saved = await createProduct(payload)
+      } else {
+        saved = await updateProduct(id!, payload)
+      }
+
+      const savedProductId = saved.id
+
+      if (pendingFiles.length > 0) {
+        for (let i = 0; i < pendingFiles.length; i++) {
+          const file = pendingFiles[i]
+          let url: string
+          try {
+            url = await uploadProductImage(supabase, file, savedProductId)
+          } catch (uploadErr) {
+            console.error('upload image', uploadErr)
+            showErrorToast('Upload failed', uploadErr)
+            continue
+          }
+
+          try {
+            const img = await addProductImage({
+              product_id: savedProductId,
+              url,
+              alt_text: null,
+              sort_order: images.length + i,
+              is_cover: images.length === 0 && i === 0,
+            })
+            setImages((prev) => [...prev, img])
+          } catch (recordErr) {
+            console.error('save image record', recordErr)
+            showErrorToast('Failed to save image record', recordErr)
+          }
+        }
+        setPendingFiles([])
+      }
+
+      setForm((prev) => ({
+        ...prev,
+        ...payload,
+        id: savedProductId,
+      }))
+
       toast.success(t('admin.saved'))
-      if (isNew) navigate(`/admin/products/${saved.id}`, { replace: true })
+      if (isNew) navigate(`/admin/products/${savedProductId}`, { replace: true })
     } catch (e: unknown) {
-      toast.error(t('admin.error'))
+      console.error('save product', e)
+      showErrorToast(t('admin.error'), e)
     } finally {
       setSaving(false)
     }
   }
 
-  const onDrop = useCallback(async (files: File[]) => {
-    if (!form.id && isNew) {
-      toast.error('Save the product first before uploading images.')
-      return
-    }
-    setUploading(true)
-    for (const file of files) {
-      try {
-        const url = await uploadProductImage(supabase, file, form.id!)
-        const img = await addProductImage({
-          product_id: form.id,
-          url,
-          sort_order: images.length,
-          is_cover: images.length === 0,
-        })
-        setImages((prev) => [...prev, img])
-      } catch {
-        toast.error('Upload failed')
+  const onDrop = useCallback(
+    async (files: File[]) => {
+      const currentProductId = form.id || (isNew ? null : id)
+      if (!currentProductId) {
+        setPendingFiles((prev) => [...prev, ...files])
+        return
       }
-    }
-    setUploading(false)
-  }, [form.id, images.length, isNew])
+      setUploading(true)
+      for (const file of files) {
+        let url: string
+        try {
+          url = await uploadProductImage(supabase, file, currentProductId)
+        } catch (uploadErr) {
+          console.error('upload image', uploadErr)
+          showErrorToast('Upload failed', uploadErr)
+          continue
+        }
+
+        try {
+          const img = await addProductImage({
+            product_id: currentProductId,
+            url,
+            alt_text: null,
+            sort_order: images.length,
+            is_cover: images.length === 0,
+          })
+          setImages((prev) => [...prev, img])
+        } catch (recordErr) {
+          console.error('save image record', recordErr)
+          showErrorToast('Failed to save image record', recordErr)
+        }
+      }
+      setUploading(false)
+    },
+    [form.id, id, isNew, images.length, showErrorToast]
+  )
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
     accept: { 'image/*': ['.jpg', '.jpeg', '.png', '.webp'] },
     maxSize: 8 * 1024 * 1024,
-    disabled: isNew || !form.id,
   })
 
   async function handleDeleteImage(img: ProductImage) {
@@ -118,19 +323,22 @@ export default function ProductForm() {
       await deleteProductImage(img.id)
       setImages((prev) => prev.filter((i) => i.id !== img.id))
       toast.success(t('admin.saved'))
-    } catch {
-      toast.error(t('admin.error'))
+    } catch (err) {
+      console.error('save image record', err)
+      showErrorToast(t('admin.error'), err)
     }
   }
 
   async function handleSetCover(img: ProductImage) {
-    if (!form.id) return
+    const currentProductId = form.id || id
+    if (!currentProductId) return
     try {
-      await setCoverImage(form.id, img.id)
+      await setCoverImage(currentProductId, img.id)
       setImages((prev) => prev.map((i) => ({ ...i, is_cover: i.id === img.id })))
       toast.success(t('admin.saved'))
-    } catch {
-      toast.error(t('admin.error'))
+    } catch (err) {
+      console.error('save image record', err)
+      showErrorToast(t('admin.error'), err)
     }
   }
 
@@ -317,7 +525,7 @@ export default function ProductForm() {
               isDragActive
                 ? 'border-[#D9541E] bg-[#fff8f5]'
                 : 'border-[#E6DFCF] hover:border-[#3B2418]'
-            } ${(isNew || !form.id) ? 'opacity-40 pointer-events-none' : ''}`}
+            }`}
           >
             <input {...getInputProps()} />
             <p className="text-[#8a7060]">
@@ -327,8 +535,10 @@ export default function ProductForm() {
             <p className="text-xs text-[#8a7060] mt-1.5 italic font-normal">
               Best with a photo of the piece on a plain or transparent background.
             </p>
-            {(isNew || !form.id) && (
-              <p className="text-xs text-[#D9541E] mt-2">Save the product first</p>
+            {pendingFiles.length > 0 && (
+              <p className="text-xs text-[#D9541E] mt-2 font-normal">
+                {pendingFiles.length} {pendingFiles.length === 1 ? 'image' : 'images'} queued (will upload on save)
+              </p>
             )}
           </div>
 

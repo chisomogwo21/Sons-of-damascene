@@ -191,14 +191,63 @@ export async function fetchAllProducts(): Promise<Product[]> {
   return data as Product[]
 }
 
-export async function upsertProduct(product: Partial<Product>): Promise<Product> {
+export const PRODUCT_COLUMNS = [
+  'slug',
+  'category_id',
+  'name_en',
+  'name_rw',
+  'name_fr',
+  'description_en',
+  'description_rw',
+  'description_fr',
+  'wood_type',
+  'dimensions',
+  'lead_time_text',
+  'price_amount',
+  'currency',
+  'is_published',
+  'is_featured',
+  'sort_order',
+] as const
+
+export function filterProductPayload(input: Partial<Product>): Record<string, unknown> {
+  const payload: Record<string, unknown> = {}
+  for (const col of PRODUCT_COLUMNS) {
+    if (col in input) {
+      payload[col] = (input as Record<string, unknown>)[col]
+    }
+  }
+  return payload
+}
+
+export async function createProduct(product: Partial<Product>): Promise<Product> {
+  const payload = filterProductPayload(product)
   const { data, error } = await supabase
     .from('products')
-    .upsert([product])
+    .insert([payload])
     .select()
     .single()
   if (error) throw error
   return data as Product
+}
+
+export async function updateProduct(id: string, product: Partial<Product>): Promise<Product> {
+  const payload = filterProductPayload(product)
+  const { data, error } = await supabase
+    .from('products')
+    .update(payload)
+    .eq('id', id)
+    .select()
+    .single()
+  if (error) throw error
+  return data as Product
+}
+
+export async function upsertProduct(product: Partial<Product>): Promise<Product> {
+  if (product.id) {
+    return updateProduct(product.id, product)
+  }
+  return createProduct(product)
 }
 
 export async function deleteProduct(id: string): Promise<void> {
@@ -237,10 +286,29 @@ export async function upsertSetting(key: string, value: string): Promise<void> {
   if (error) throw error
 }
 
+export const PRODUCT_IMAGE_COLUMNS = [
+  'product_id',
+  'url',
+  'alt_text',
+  'sort_order',
+  'is_cover',
+] as const
+
+export function filterProductImagePayload(input: Partial<ProductImage>): Record<string, unknown> {
+  const payload: Record<string, unknown> = {}
+  for (const col of PRODUCT_IMAGE_COLUMNS) {
+    if (col in input) {
+      payload[col] = (input as Record<string, unknown>)[col]
+    }
+  }
+  return payload
+}
+
 export async function addProductImage(img: Partial<ProductImage>): Promise<ProductImage> {
+  const payload = filterProductImagePayload(img)
   const { data, error } = await supabase
     .from('product_images')
-    .insert([img])
+    .insert([payload])
     .select()
     .single()
   if (error) throw error
