@@ -344,3 +344,121 @@ export async function fetchAllEnquiries() {
   if (error) throw error
   return data
 }
+
+export interface DeploymentStatus {
+  lastDeployedAt: string | null
+  pendingChanges: number
+}
+
+export async function checkDeploymentStatus(): Promise<DeploymentStatus> {
+  const base = import.meta.env.BASE_URL || '/'
+  const contentUrl = `${base.endsWith('/') ? base : base + '/'}content.json?t=${Date.now()}`
+
+  let liveData: any = null
+  let lastDeployedTime = 0
+  let lastDeployedIso: string | null = null
+
+  try {
+    const res = await fetch(contentUrl, { cache: 'no-store' })
+    if (res.ok) {
+      liveData = await res.json()
+      if (liveData?.generatedAt) {
+        lastDeployedIso = liveData.generatedAt
+        lastDeployedTime = new Date(liveData.generatedAt).getTime()
+      } else {
+        const lastMod = res.headers.get('last-modified')
+        if (lastMod) {
+          lastDeployedIso = new Date(lastMod).toISOString()
+          lastDeployedTime = new Date(lastMod).getTime()
+        }
+      }
+    }
+  } catch (err) {
+    console.warn('[checkDeploymentStatus] Could not fetch live content.json:', err)
+  }
+
+  let pendingChanges = 0
+
+  // 1. Check products
+  try {
+    const { data: products } = await supabase.from('products').select('*')
+    if (Array.isArray(products)) {
+      const liveProductMap = new Map((liveData?.products || []).map((p: any) => [p.id, p]))
+      for (const p of products) {
+        const pUpdated = (p as any).updated_at ? new Date((p as any).updated_at).getTime() : 0
+        const pCreated = p.created_at ? new Date(p.created_at).getTime() : 0
+        const newest = Math.max(pUpdated, pCreated)
+
+        if (lastDeployedTime > 0 && newest > lastDeployedTime) {
+          pendingChanges++
+        } else if (lastDeployedTime > 0) {
+          const liveP = liveProductMap.get(p.id)
+          if (p.is_published && !liveP) pendingChanges++
+          else if (!p.is_published && liveP) pendingChanges++
+        }
+      }
+    }
+  } catch (err) {
+    console.warn('[checkDeploymentStatus] Error checking products:', err)
+  }
+
+  // 2. Check product_images
+  try {
+    const { data: images } = await supabase.from('product_images').select('*')
+    if (Array.isArray(images)) {
+      for (const img of images) {
+        const imgUpdated = (img as any).updated_at ? new Date((img as any).updated_at).getTime() : 0
+        if (lastDeployedTime > 0 && imgUpdated > lastDeployedTime) {
+          pendingChanges++
+        }
+      }
+    }
+  } catch (err) {
+    console.warn('[checkDeploymentStatus] Error checking product_images:', err)
+  }
+
+  // 3. Check testimonials
+  try {
+    const { data: testimonials } = await supabase.from('testimonials').select('*')
+    if (Array.isArray(testimonials)) {
+      const liveTestimonialMap = new Map((liveData?.testimonials || []).map((t: any) => [t.id, t]))
+      for (const t of testimonials) {
+        const tUpdated = (t as any).updated_at ? new Date((t as any).updated_at).getTime() : 0
+        const tCreated = t.created_at ? new Date(t.created_at).getTime() : 0
+        const newest = Math.max(tUpdated, tCreated)
+
+        if (lastDeployedTime > 0 && newest > lastDeployedTime) {
+          pendingChanges++
+        } else if (lastDeployedTime > 0) {
+          const liveT = liveTestimonialMap.get(t.id)
+          if (t.is_published && !liveT) pendingChanges++
+          else if (!t.is_published && liveT) pendingChanges++
+        }
+      }
+    }
+  } catch (err) {
+    console.warn('[checkDeploymentStatus] Error checking testimonials:', err)
+  }
+
+  // 4. Check site_settings
+  try {
+    const { data: settings } = await supabase.from('site_settings').select('*')
+    if (Array.isArray(settings)) {
+      for (const s of settings) {
+        const sUpdated = (s as any).updated_at ? new Date((s as any).updated_at).getTime() : 0
+        if (lastDeployedTime > 0 && sUpdated > lastDeployedTime) {
+          pendingChanges++
+        } else if (lastDeployedTime > 0 && liveData?.settings && liveData.settings[s.key] !== s.value) {
+          pendingChanges++
+        }
+      }
+    }
+  } catch (err) {
+    console.warn('[checkDeploymentStatus] Error checking site_settings:', err)
+  }
+
+  return {
+    lastDeployedAt: lastDeployedIso,
+    pendingChanges,
+  }
+}

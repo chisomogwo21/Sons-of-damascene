@@ -1,3 +1,5 @@
+declare const __BUILD_ID__: string | undefined
+
 // ── Types ──────────────────────────────────────────────────────
 export interface Category {
   id: string
@@ -56,6 +58,9 @@ export interface Testimonial {
 export type SiteSettings = Record<string, string>
 
 export interface ContentData {
+  generatedAt?: string
+  productCount?: number
+  testimonialCount?: number
   products: Product[]
   categories: Category[]
   testimonials: Testimonial[]
@@ -63,6 +68,7 @@ export interface ContentData {
 }
 
 let cachedDataPromise: Promise<ContentData> | null = null
+let devInFlightPromise: Promise<ContentData> | null = null
 
 function resolveMediaUrl(url: string | null | undefined): string | null | undefined {
   if (!url || typeof url !== 'string') return url
@@ -73,48 +79,112 @@ function resolveMediaUrl(url: string | null | undefined): string | null | undefi
   return url
 }
 
+function normalizeMediaUrls(data: ContentData): ContentData {
+  if (Array.isArray(data.products)) {
+    for (const p of data.products) {
+      if (Array.isArray(p.product_images)) {
+        for (const img of p.product_images) {
+          img.url = resolveMediaUrl(img.url) || ''
+        }
+      }
+      if (p.categories && p.categories.cover_image_url) {
+        p.categories.cover_image_url = resolveMediaUrl(p.categories.cover_image_url) || null
+      }
+    }
+  }
+
+  if (Array.isArray(data.categories)) {
+    for (const c of data.categories) {
+      if (c.cover_image_url) {
+        c.cover_image_url = resolveMediaUrl(c.cover_image_url) || null
+      }
+    }
+  }
+
+  if (data.settings && typeof data.settings === 'object') {
+    for (const [k, v] of Object.entries(data.settings)) {
+      if (typeof v === 'string' && v.startsWith('media/')) {
+        data.settings[k] = resolveMediaUrl(v) || ''
+      }
+    }
+  }
+
+  return data
+}
+
+async function fetchDevLiveContent(): Promise<ContentData> {
+  const { supabase } = await import('./supabase')
+
+  const [prodRes, catRes, testRes, setRes] = await Promise.all([
+    supabase
+      .from('products')
+      .select(`
+        *,
+        product_images(*),
+        categories(*)
+      `)
+      .eq('is_published', true)
+      .order('sort_order'),
+    supabase
+      .from('categories')
+      .select('*')
+      .order('sort_order'),
+    supabase
+      .from('testimonials')
+      .select('*')
+      .eq('is_published', true)
+      .order('sort_order'),
+    supabase
+      .from('site_settings')
+      .select('*'),
+  ])
+
+  if (prodRes.error) console.error('[content.ts DEV] Error fetching products:', prodRes.error)
+  if (catRes.error) console.error('[content.ts DEV] Error fetching categories:', catRes.error)
+  if (testRes.error) console.error('[content.ts DEV] Error fetching testimonials:', testRes.error)
+  if (setRes.error) console.error('[content.ts DEV] Error fetching site_settings:', setRes.error)
+
+  const settings: SiteSettings = {}
+  for (const row of setRes.data || []) {
+    settings[row.key] = row.value
+  }
+
+  const liveData: ContentData = {
+    generatedAt: new Date().toISOString(),
+    productCount: prodRes.data?.length || 0,
+    testimonialCount: testRes.data?.length || 0,
+    products: (prodRes.data || []) as Product[],
+    categories: (catRes.data || []) as Category[],
+    testimonials: (testRes.data || []) as Testimonial[],
+    settings,
+  }
+
+  return normalizeMediaUrls(liveData)
+}
+
 export async function loadContent(): Promise<ContentData> {
+  if (import.meta.env.DEV) {
+    if (!devInFlightPromise) {
+      devInFlightPromise = fetchDevLiveContent().finally(() => {
+        setTimeout(() => {
+          devInFlightPromise = null
+        }, 800)
+      })
+    }
+    return devInFlightPromise
+  }
+
   if (!cachedDataPromise) {
     cachedDataPromise = (async () => {
       const base = import.meta.env.BASE_URL || '/'
-      const jsonUrl = `${base.endsWith('/') ? base : base + '/'}content.json`
+      const buildTime = typeof __BUILD_ID__ !== 'undefined' ? __BUILD_ID__ : Date.now().toString()
+      const jsonUrl = `${base.endsWith('/') ? base : base + '/'}content.json?v=${encodeURIComponent(buildTime)}`
       const res = await fetch(jsonUrl)
       if (!res.ok) {
         throw new Error(`[content.ts] Failed to load content.json (${res.status} ${res.statusText})`)
       }
       const data: ContentData = await res.json()
-
-      // Resolve all media URLs against import.meta.env.BASE_URL
-      if (Array.isArray(data.products)) {
-        for (const p of data.products) {
-          if (Array.isArray(p.product_images)) {
-            for (const img of p.product_images) {
-              img.url = resolveMediaUrl(img.url) || ''
-            }
-          }
-          if (p.categories && p.categories.cover_image_url) {
-            p.categories.cover_image_url = resolveMediaUrl(p.categories.cover_image_url) || null
-          }
-        }
-      }
-
-      if (Array.isArray(data.categories)) {
-        for (const c of data.categories) {
-          if (c.cover_image_url) {
-            c.cover_image_url = resolveMediaUrl(c.cover_image_url) || null
-          }
-        }
-      }
-
-      if (data.settings && typeof data.settings === 'object') {
-        for (const [k, v] of Object.entries(data.settings)) {
-          if (typeof v === 'string' && v.startsWith('media/')) {
-            data.settings[k] = resolveMediaUrl(v) || ''
-          }
-        }
-      }
-
-      return data
+      return normalizeMediaUrls(data)
     })()
   }
   return cachedDataPromise

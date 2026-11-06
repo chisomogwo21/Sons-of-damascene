@@ -190,7 +190,9 @@ async function exportContent() {
     .order('sort_order');
 
   if (prodErr) {
-    console.error('[export-content] ERROR: Failed to fetch products:', prodErr);
+    console.error('[export-content] ERROR: Failed to fetch products from Supabase:');
+    console.error(JSON.stringify(prodErr, null, 2));
+    console.error(prodErr);
     process.exit(1);
   }
 
@@ -201,7 +203,9 @@ async function exportContent() {
     .order('sort_order');
 
   if (catErr) {
-    console.error('[export-content] ERROR: Failed to fetch categories:', catErr);
+    console.error('[export-content] ERROR: Failed to fetch categories from Supabase:');
+    console.error(JSON.stringify(catErr, null, 2));
+    console.error(catErr);
     process.exit(1);
   }
 
@@ -213,7 +217,9 @@ async function exportContent() {
     .order('sort_order');
 
   if (testErr) {
-    console.error('[export-content] ERROR: Failed to fetch testimonials:', testErr);
+    console.error('[export-content] ERROR: Failed to fetch testimonials from Supabase:');
+    console.error(JSON.stringify(testErr, null, 2));
+    console.error(testErr);
     process.exit(1);
   }
 
@@ -223,7 +229,9 @@ async function exportContent() {
     .select('*');
 
   if (setErr) {
-    console.error('[export-content] ERROR: Failed to fetch site_settings:', setErr);
+    console.error('[export-content] ERROR: Failed to fetch site_settings from Supabase:');
+    console.error(JSON.stringify(setErr, null, 2));
+    console.error(setErr);
     process.exit(1);
   }
 
@@ -233,11 +241,30 @@ async function exportContent() {
     process.exit(1);
   }
 
+  // Count images fetched before URL rewriting
+  let totalProductImages = 0;
+  for (const prod of products || []) {
+    if (Array.isArray(prod.product_images)) {
+      totalProductImages += prod.product_images.length;
+    }
+  }
+
+  let totalCategoryImages = 0;
+  for (const cat of categories || []) {
+    if (cat.cover_image_url) totalCategoryImages++;
+  }
+
   // Transform settings rows into key-value map
   const settings = {};
+  let totalSettingsImages = 0;
   for (const row of settingsRows || []) {
     settings[row.key] = row.value;
+    if (isMediaUrl(row.key, row.value)) {
+      totalSettingsImages++;
+    }
   }
+
+  const totalImagesFetched = totalProductImages + totalCategoryImages + totalSettingsImages;
 
   // Download and rewrite product images
   for (const prod of products || []) {
@@ -264,8 +291,48 @@ async function exportContent() {
     }
   }
 
-  // Prepare final content object
+  // Check whether content changed vs the last deploy (full content comparison)
+  const targetFile = path.join(publicDir, 'content.json');
+  const prevFile = fs.existsSync('/tmp/live_content.json') ? '/tmp/live_content.json' : targetFile;
+  let prevContent = null;
+  let contentChanged = true;
+
+  if (fs.existsSync(prevFile)) {
+    try {
+      prevContent = JSON.parse(fs.readFileSync(prevFile, 'utf8'));
+      const prevNormalized = {
+        products: prevContent.products || [],
+        categories: prevContent.categories || [],
+        testimonials: prevContent.testimonials || [],
+        settings: prevContent.settings || {},
+      };
+      const newNormalized = {
+        products: products || [],
+        categories: categories || [],
+        testimonials: testimonials || [],
+        settings,
+      };
+
+      const prevHash = crypto.createHash('sha256').update(JSON.stringify(prevNormalized)).digest('hex');
+      const newHash = crypto.createHash('sha256').update(JSON.stringify(newNormalized)).digest('hex');
+      contentChanged = prevHash !== newHash;
+    } catch (e) {
+      contentChanged = true;
+    }
+  }
+
+  const now = new Date().toISOString();
+  // If content changed or no previous deploy timestamp exists, generate new timestamp;
+  // otherwise preserve the deploy timestamp so identical content doesn't trigger spurious diffs
+  const generatedAt = contentChanged ? now : (prevContent?.generatedAt || now);
+  const productCount = products?.length || 0;
+  const testimonialCount = testimonials?.length || 0;
+
+  // Prepare final content object with metadata
   const content = {
+    generatedAt,
+    productCount,
+    testimonialCount,
     products: products || [],
     categories: categories || [],
     testimonials: testimonials || [],
@@ -274,7 +341,6 @@ async function exportContent() {
 
   // Atomic write to public/content.json
   const tempFile = path.join(publicDir, 'content.json.tmp');
-  const targetFile = path.join(publicDir, 'content.json');
   fs.writeFileSync(tempFile, JSON.stringify(content, null, 2), 'utf8');
   fs.renameSync(tempFile, targetFile);
 
@@ -295,12 +361,15 @@ async function exportContent() {
 
   const totalMb = (totalBytes / (1024 * 1024)).toFixed(2);
   console.log('\n── Export Content Summary ──────────────────────');
-  console.log(`Products:            ${products?.length || 0}`);
-  console.log(`Categories:          ${categories?.length || 0}`);
-  console.log(`Testimonials:        ${testimonials?.length || 0}`);
-  console.log(`Media Files Total:   ${files.length} (${downloadedCount} newly downloaded, ${skippedCount} skipped/cached)`);
-  console.log(`Media Total Size:    ${totalMb} MB`);
-  console.log(`content.json:        Successfully written to ${targetFile}`);
+  console.log(`Products fetched:     ${productCount}`);
+  console.log(`Images fetched:       ${totalImagesFetched} (${totalProductImages} product images, ${totalCategoryImages} category covers, ${totalSettingsImages} settings media)`);
+  console.log(`Testimonials fetched: ${testimonialCount}`);
+  console.log(`Categories fetched:   ${categories?.length || 0}`);
+  console.log(`Content changed:      ${contentChanged ? 'Yes (changes detected vs last deploy)' : 'No (identical to last deploy)'}`);
+  console.log(`Generated at:         ${generatedAt}`);
+  console.log(`Media Files Total:    ${files.length} (${downloadedCount} newly downloaded, ${skippedCount} skipped/cached)`);
+  console.log(`Media Total Size:     ${totalMb} MB`);
+  console.log(`content.json:         Successfully written to ${targetFile}`);
   console.log('────────────────────────────────────────────────\n');
 }
 

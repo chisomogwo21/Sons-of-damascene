@@ -4,6 +4,9 @@ import { defineConfig } from 'vite'
 
 // https://vite.dev/config/
 export default defineConfig({
+  define: {
+    __BUILD_ID__: JSON.stringify(new Date().toISOString()),
+  },
   base: process.env.VITE_BASE || '/',
   build: {
     modulePreload: false,
