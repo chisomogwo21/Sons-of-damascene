@@ -537,10 +537,12 @@ button:hover .arrow-icon {
 }
 
 /* ── Transitions ─────────────────────────────────────────── */
-.img-zoom img {
+.img-zoom img:not(.img-blur-bg),
+.img-zoom .img-zoom-target {
   transition: transform 0.4s ease;
 }
-.img-zoom:hover img {
+.img-zoom:hover img:not(.img-blur-bg),
+.group:hover .img-zoom-target {
   transform: scale(1.04);
 }
 

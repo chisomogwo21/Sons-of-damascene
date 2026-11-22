@@ -33,27 +33,42 @@ export default function ProductGallery({ images, productName }: ProductGalleryPr
     setActive((i) => (i + 1) % sorted.length)
   }
 
+  const activeImg = sorted[active] || sorted[0]
+
   return (
     <div className="flex flex-col gap-3">
-      {/* Main image */}
-      <div className="relative overflow-hidden aspect-square bg-[#F5EDD8]">
+      {/* Main image: uncropped, natural proportion, max-h-[80vh] with blurred cream-washed backdrop */}
+      <div className="relative overflow-hidden w-full flex items-center justify-center bg-[#F5EDD8] border border-[#E6DFCF]">
+        {/* Blurred background image filling empty space */}
         <img
-          src={sorted[active].url}
-          alt={sorted[active].alt_text || productName}
-          className="w-full h-full object-cover"
+          src={activeImg.url}
+          alt=""
+          aria-hidden="true"
+          className="absolute inset-0 w-full h-full object-cover pointer-events-none select-none"
+          style={{ filter: 'blur(24px)', transform: 'scale(1.35)' }}
         />
+        {/* Light cream wash overlay */}
+        <div className="absolute inset-0 bg-[#FBF6EA]/60 pointer-events-none" />
+
+        {/* Sharp uncropped main photo */}
+        <img
+          src={activeImg.url}
+          alt={activeImg.alt_text || productName}
+          className="relative z-10 w-full max-h-[80vh] object-contain"
+        />
+
         {sorted.length > 1 && (
           <>
             <button
               onClick={prev}
-              className="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 flex items-center justify-center bg-white/80 hover:bg-white transition-colors"
+              className="absolute left-3 top-1/2 -translate-y-1/2 z-20 w-9 h-9 flex items-center justify-center bg-white/80 hover:bg-white text-[#3B2418] transition-colors shadow-sm"
               aria-label={t('product.gallery_prev')}
             >
               ‹
             </button>
             <button
               onClick={next}
-              className="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 flex items-center justify-center bg-white/80 hover:bg-white transition-colors"
+              className="absolute right-3 top-1/2 -translate-y-1/2 z-20 w-9 h-9 flex items-center justify-center bg-white/80 hover:bg-white text-[#3B2418] transition-colors shadow-sm"
               aria-label={t('product.gallery_next')}
             >
               ›
@@ -69,16 +84,26 @@ export default function ProductGallery({ images, productName }: ProductGalleryPr
             <button
               key={img.id}
               onClick={() => setActive(i)}
-              className={`flex-none w-16 h-16 overflow-hidden border-2 transition-colors ${
-                i === active ? 'border-[#D9541E]' : 'border-transparent'
+              className={`relative flex-none w-16 h-16 overflow-hidden border-2 transition-colors bg-[#F5EDD8] ${
+                i === active ? 'border-[#D9541E]' : 'border-[#E6DFCF]'
               }`}
               aria-label={`Image ${i + 1}`}
               aria-pressed={i === active}
             >
+              {/* Blurred background for thumbnail */}
+              <img
+                src={img.url}
+                alt=""
+                aria-hidden="true"
+                className="absolute inset-0 w-full h-full object-cover pointer-events-none select-none"
+                style={{ filter: 'blur(12px)', transform: 'scale(1.3)' }}
+              />
+              <div className="absolute inset-0 bg-[#FBF6EA]/50 pointer-events-none" />
+              {/* Uncropped thumbnail */}
               <img
                 src={img.url}
                 alt={img.alt_text || `${productName} ${i + 1}`}
-                className="w-full h-full object-cover"
+                className="relative z-10 w-full h-full object-contain"
                 loading="lazy"
               />
             </button>

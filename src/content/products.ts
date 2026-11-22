@@ -145,6 +145,54 @@ export const products: ProductItem[] = [
     ],
   },
   {
+    slug: 'slatted-bench',
+    category: 'seating',
+    name_en: 'Slatted Bench',
+    name_rw: 'Intebe y\'Imbaho Zigaragara', // needs native review
+    name_fr: 'Banc à Lattes', // needs native review
+    description_en: 'A sturdy bench with a slatted seat in warm, mixed wood tones on a dark-stained frame with a lower crossbar. Good for dining, entrance halls or the garden, and made to the length, height and wood you choose.',
+    description_rw: 'Intebe ikomeye ifite aho kwicara hakozwe mu mbaho zigaragara z\'amabara ashyuha arimo n\'isuri ry\'ibiti bibiri, bihagarariwe n\'imiterere yafuye umwirakari n\'inkozamiryango. Ikwiriye kuri tafura, mu nzugi z\'inzu cyangwa mu murima, kandi ikorwa ku bunini, uburebure n\'igiti wihitiyemo.', // needs native review
+    description_fr: 'Un banc robuste au plateau à lattes dans des tons de bois chauds et mélangés, monté sur un cadre teinté sombre avec une traverse basse. Idéal pour la salle à manger, l\'entrée ou le jardin, fabriqué à la longueur, la hauteur et dans l\'essence de bois de votre choix.', // needs native review
+    wood_type: 'Your choice',
+    dimensions: 'Made to measure',
+    lead_time_text: '2–4 weeks',
+    price_amount: null, // Price on request
+    currency: 'RWF',
+    published: true,
+    featured: true,
+    sortOrder: 6,
+    images: [
+      {
+        url: 'images/products/slatted-bench/1.webp',
+        alt_text: 'Slatted Bench in warm mixed wood tones on a dark frame',
+      },
+    ],
+  },
+  {
+    slug: 'fabric-wrapped-low-bed',
+    category: 'beds',
+    name_en: 'Fabric-Wrapped Low Bed',
+    name_rw: 'Igitanda Cyo Hasi Gifunikiye Igitambaro cy\'Afurika', // needs native review
+    name_fr: 'Lit Bas Habillé de Tissu Africain', // needs native review
+    description_en: 'A low bed base wrapped in bold African wax-print fabric, built to the size you need, from single to queen. The fabric and frame are of your choice. The mattress and bedding shown in the photo are not included.',
+    description_rw: 'Igitanda cyo hasi kifunikiye igitambaro cy\'Afurika gikozwe mu mabara ashimishije, kikorwa ku bunini ukeneye, kuva ku cyumba kimwe kugeza kinini. Igitambaro n\'imbaho bihatirwa ibibazo byawe. Materas n\'ibikoresho by\'ubuturo bigaragara mu kifoto ntibibiziramo.', // needs native review
+    description_fr: 'Un sommier bas habillé d\'un tissu wax africain aux motifs audacieux, fabriqué à la taille dont vous avez besoin, du simple au queen. Le tissu et le cadre sont au choix du client. Le matelas et la literie visibles sur la photo ne sont pas inclus.', // needs native review
+    wood_type: 'Your choice',
+    dimensions: 'Made to measure',
+    lead_time_text: '4–6 weeks',
+    price_amount: null, // Price on request
+    currency: 'RWF',
+    published: true,
+    featured: true,
+    sortOrder: 7,
+    images: [
+      {
+        url: 'images/products/fabric-wrapped-low-bed/1.webp',
+        alt_text: 'Fabric-Wrapped Low Bed with bold African wax-print fabric base',
+      },
+    ],
+  },
+  {
     slug: 'kintu-queen-bed',
     category: 'beds',
     name_en: 'Kintu Queen Bed',
@@ -160,7 +208,7 @@ export const products: ProductItem[] = [
     currency: 'RWF',
     published: true,
     featured: false,
-    sortOrder: 6,
+    sortOrder: 8,
     images: [],
   },
   {
@@ -179,7 +227,7 @@ export const products: ProductItem[] = [
     currency: 'RWF',
     published: true,
     featured: false,
-    sortOrder: 7,
+    sortOrder: 9,
     images: [],
   },
   {
@@ -198,7 +246,7 @@ export const products: ProductItem[] = [
     currency: 'RWF',
     published: true,
     featured: true,
-    sortOrder: 8,
+    sortOrder: 10,
     images: [],
   },
   {
@@ -217,7 +265,7 @@ export const products: ProductItem[] = [
     currency: 'RWF',
     published: true,
     featured: false,
-    sortOrder: 9,
+    sortOrder: 11,
     images: [],
   },
   {
@@ -236,7 +284,7 @@ export const products: ProductItem[] = [
     currency: 'RWF',
     published: true,
     featured: true,
-    sortOrder: 10,
+    sortOrder: 12,
     images: [],
   },
   {
@@ -255,7 +303,7 @@ export const products: ProductItem[] = [
     currency: 'RWF',
     published: true,
     featured: false,
-    sortOrder: 11,
+    sortOrder: 13,
     images: [],
   },
   {
@@ -274,7 +322,7 @@ export const products: ProductItem[] = [
     currency: 'RWF',
     published: true,
     featured: false,
-    sortOrder: 12,
+    sortOrder: 14,
     images: [],
   },
 ]

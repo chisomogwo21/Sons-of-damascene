@@ -38,15 +38,30 @@ export default function ProductCard({ product, showSampleMarker = false }: Produ
       className="group block bg-[#FBF6EA] border border-[#E6DFCF] hover:border-[#D9541E] transition-colors"
       aria-label={name}
     >
-      {/* Image */}
-      <div className="relative overflow-hidden aspect-[4/3] img-zoom">
+      {/* Image: uniform 4/3 ratio, uncropped centered foreground + blurred cream-washed backdrop */}
+      <div className="relative overflow-hidden aspect-[4/3] bg-[#F5EDD8] img-zoom">
         {cover ? (
-          <img
-            src={cover}
-            alt={name}
-            loading="lazy"
-            className="w-full h-full object-cover transition-transform duration-400"
-          />
+          <>
+            {/* Blurred background image filling empty space */}
+            <img
+              src={cover}
+              alt=""
+              aria-hidden="true"
+              loading="lazy"
+              className="absolute inset-0 w-full h-full object-cover img-blur-bg pointer-events-none select-none"
+              style={{ filter: 'blur(24px)', transform: 'scale(1.35)' }}
+            />
+            {/* Light cream wash overlay */}
+            <div className="absolute inset-0 bg-[#FBF6EA]/60 pointer-events-none" />
+
+            {/* Sharp uncropped main photo */}
+            <img
+              src={cover}
+              alt={name}
+              loading="lazy"
+              className="relative z-10 w-full h-full object-contain img-zoom-target"
+            />
+          </>
         ) : (
           <Placeholder />
         )}
