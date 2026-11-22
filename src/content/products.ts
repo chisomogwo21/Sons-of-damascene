@@ -49,30 +49,6 @@ export const products: ProductItem[] = [
     ],
   },
   {
-    slug: 'bespoke-wardrobe',
-    category: 'custom-pieces',
-    name_en: 'Bespoke Built-in Wardrobe',
-    name_rw: "Ibigega Bikorwa Bihuje n'Aho",
-    name_fr: 'Armoire Sur Mesure',
-    description_en: 'Fully custom wardrobes designed around your space. We work with you from first sketch to final fitting. Price varies by size and specification.',
-    description_rw: "Ibigega bikorwa bihuje n'aho ushaka mu nzu yawe. Dukorana nawe kuva ku gishushanyo cya mbere kugeza igihe kirangiye.",
-    description_fr: "Armoires entièrement sur mesure conçues autour de votre espace. Nous travaillons avec vous du premier croquis à l'installation finale.",
-    wood_type: 'Your choice',
-    dimensions: 'Made to measure',
-    lead_time_text: '6–10 weeks',
-    price_amount: null, // Price on request
-    currency: 'RWF',
-    published: true,
-    featured: true,
-    sortOrder: 2,
-    images: [
-      {
-        url: 'images/products/bespoke-wardrobe/1.webp',
-        alt_text: 'Bespoke Built-in Wardrobe',
-      },
-    ],
-  },
-  {
     slug: 'serving-tray',
     category: 'custom-pieces',
     name_en: 'Handled Serving Tray',
