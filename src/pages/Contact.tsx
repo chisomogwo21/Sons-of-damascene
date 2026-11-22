@@ -13,15 +13,6 @@ export default function Contact() {
     fetchSiteSettings().then(setSettings)
   }, [])
 
-  async function saveEnquiryToSupabase(data: { name: string; contact: string; message: string }) {
-    try {
-      const { sendEnquiry } = await import('../lib/enquiry')
-      await sendEnquiry(data)
-    } catch {
-      // Ignore failure silently in the background
-    }
-  }
-
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     setStatus('loading')
@@ -30,9 +21,6 @@ export default function Contact() {
     const lang = i18n.language.slice(0, 2) || 'en'
 
     if (web3Key) {
-      // Fire background save with 3-second timeout, silently ignoring failure
-      saveEnquiryToSupabase({ ...form })
-
       try {
         const response = await fetch('https://api.web3forms.com/submit', {
           method: 'POST',
@@ -60,15 +48,8 @@ export default function Contact() {
         setStatus('error')
       }
     } else {
-      console.warn('[Contact] VITE_WEB3FORMS_KEY is missing. Falling back to direct database insert.')
-      try {
-        const { sendEnquiry } = await import('../lib/enquiry')
-        await sendEnquiry(form)
-        setStatus('success')
-        setForm({ name: '', contact: '', message: '' })
-      } catch {
-        setStatus('error')
-      }
+      console.warn('[Contact] VITE_WEB3FORMS_KEY is missing. Form cannot be submitted without an access key.')
+      setStatus('error')
     }
   }
 

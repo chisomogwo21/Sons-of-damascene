@@ -20,13 +20,6 @@ dist-ssr
 .env.*
 !.env.example
 
-# Build-time generated assets (served via GitHub Pages build)
-public/media
-public/content.json
-
-# Database and SQL scripts (kept out of public repository)
-supabase/
-
 # Font files – licensed (ITF Free Font License) – NEVER commit to public repository
 public/fonts/
 FontshareKit*/

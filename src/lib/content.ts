@@ -1,15 +1,11 @@
-declare const __BUILD_ID__: string | undefined
+import { categories as rawCategories, type Category } from '../content/categories'
+import { testimonials as rawTestimonials, type Testimonial } from '../content/testimonials'
+import { settings as rawSettings, type SiteSettings } from '../content/settings'
+import { products as rawProducts, type ProductItem } from '../content/products'
 
-// ── Types ──────────────────────────────────────────────────────
-export interface Category {
-  id: string
-  slug: string
-  name_en: string
-  name_rw: string | null
-  name_fr: string | null
-  cover_image_url: string | null
-  sort_order: number
-}
+export type { Category } from '../content/categories'
+export type { Testimonial } from '../content/testimonials'
+export type { SiteSettings } from '../content/settings'
 
 export interface ProductImage {
   id: string
@@ -38,207 +34,145 @@ export interface Product {
   is_published: boolean
   is_featured: boolean
   sort_order: number
-  created_at: string
+  created_at?: string
   product_images?: ProductImage[]
   categories?: Category | null
 }
 
-export interface Testimonial {
-  id: string
-  author_name: string
-  author_location: string | null
-  quote_en: string
-  quote_rw: string | null
-  quote_fr: string | null
-  is_published: boolean
-  sort_order: number
-  created_at: string
-}
-
-export type SiteSettings = Record<string, string>
-
 export interface ContentData {
-  generatedAt?: string
-  productCount?: number
-  testimonialCount?: number
   products: Product[]
   categories: Category[]
   testimonials: Testimonial[]
   settings: SiteSettings
 }
 
-let cachedDataPromise: Promise<ContentData> | null = null
-let devInFlightPromise: Promise<ContentData> | null = null
-
-function resolveMediaUrl(url: string | null | undefined): string | null | undefined {
-  if (!url || typeof url !== 'string') return url
-  if (url.startsWith('media/')) {
-    const base = import.meta.env.BASE_URL || '/'
-    return `${base.endsWith('/') ? base : base + '/'}${url}`
-  }
-  return url
+function resolveMediaUrl(url: string | null | undefined): string {
+  if (!url || typeof url !== 'string') return ''
+  if (url.startsWith('http://') || url.startsWith('https://')) return url
+  const base = import.meta.env.BASE_URL || '/'
+  const cleanUrl = url.startsWith('/') ? url.slice(1) : url
+  return `${base.endsWith('/') ? base : base + '/'}${cleanUrl}`
 }
 
-function normalizeMediaUrls(data: ContentData): ContentData {
-  if (Array.isArray(data.products)) {
-    for (const p of data.products) {
-      if (Array.isArray(p.product_images)) {
-        for (const img of p.product_images) {
-          img.url = resolveMediaUrl(img.url) || ''
-        }
-      }
-      if (p.categories && p.categories.cover_image_url) {
-        p.categories.cover_image_url = resolveMediaUrl(p.categories.cover_image_url) || null
-      }
+function mapProduct(p: ProductItem): Product {
+  const categoryObj = rawCategories.find((c) => c.slug === p.category) || null
+  const product_images: ProductImage[] = (p.images || []).map((img, idx) => {
+    const rawUrl = typeof img === 'string' ? img : img.url
+    const alt = typeof img === 'string' ? p.name_en : (img.alt_text ?? p.name_en)
+    return {
+      id: `${p.slug}-${idx + 1}`,
+      product_id: p.slug,
+      url: resolveMediaUrl(rawUrl),
+      alt_text: alt,
+      sort_order: idx,
+      is_cover: idx === 0,
     }
-  }
+  })
 
-  if (Array.isArray(data.categories)) {
-    for (const c of data.categories) {
-      if (c.cover_image_url) {
-        c.cover_image_url = resolveMediaUrl(c.cover_image_url) || null
-      }
-    }
+  return {
+    id: p.slug,
+    slug: p.slug,
+    category_id: categoryObj ? categoryObj.id : p.category,
+    name_en: p.name_en,
+    name_rw: p.name_rw,
+    name_fr: p.name_fr,
+    description_en: p.description_en,
+    description_rw: p.description_rw,
+    description_fr: p.description_fr,
+    wood_type: p.wood_type,
+    dimensions: p.dimensions,
+    lead_time_text: p.lead_time_text,
+    price_amount: p.price_amount,
+    currency: p.currency,
+    is_published: p.published,
+    is_featured: p.featured,
+    sort_order: p.sortOrder,
+    product_images,
+    categories: categoryObj,
   }
-
-  if (data.settings && typeof data.settings === 'object') {
-    for (const [k, v] of Object.entries(data.settings)) {
-      if (typeof v === 'string' && v.startsWith('media/')) {
-        data.settings[k] = resolveMediaUrl(v) || ''
-      }
-    }
-  }
-
-  return data
 }
 
-async function fetchDevLiveContent(): Promise<ContentData> {
-  const { supabase } = await import('./supabase')
-
-  const [prodRes, catRes, testRes, setRes] = await Promise.all([
-    supabase
-      .from('products')
-      .select(`
-        *,
-        product_images(*),
-        categories(*)
-      `)
-      .eq('is_published', true)
-      .order('sort_order'),
-    supabase
-      .from('categories')
-      .select('*')
-      .order('sort_order'),
-    supabase
-      .from('testimonials')
-      .select('*')
-      .eq('is_published', true)
-      .order('sort_order'),
-    supabase
-      .from('site_settings')
-      .select('*'),
-  ])
-
-  if (prodRes.error) console.error('[content.ts DEV] Error fetching products:', prodRes.error)
-  if (catRes.error) console.error('[content.ts DEV] Error fetching categories:', catRes.error)
-  if (testRes.error) console.error('[content.ts DEV] Error fetching testimonials:', testRes.error)
-  if (setRes.error) console.error('[content.ts DEV] Error fetching site_settings:', setRes.error)
-
-  const settings: SiteSettings = {}
-  for (const row of setRes.data || []) {
-    settings[row.key] = row.value
+function getResolvedSettings(): SiteSettings {
+  const resolved: SiteSettings = { ...rawSettings }
+  const mediaKeys = [
+    'hero_video_url',
+    'hero_poster_url',
+    'collage_workshop_url',
+    'collage_materials_url',
+    'collage_finish_url',
+    'banner_image_url',
+    'about_banner_url',
+    'craftsman_portrait_url',
+    'craftsman_process_url',
+    'about_process_1_url',
+    'about_process_2_url',
+    'about_process_3_url',
+    'about_process_4_url',
+    'craftsman_tools_url',
+  ]
+  for (const k of mediaKeys) {
+    if (resolved[k]) {
+      resolved[k] = resolveMediaUrl(resolved[k])
+    }
   }
-
-  const liveData: ContentData = {
-    generatedAt: new Date().toISOString(),
-    productCount: prodRes.data?.length || 0,
-    testimonialCount: testRes.data?.length || 0,
-    products: (prodRes.data || []) as Product[],
-    categories: (catRes.data || []) as Category[],
-    testimonials: (testRes.data || []) as Testimonial[],
-    settings,
-  }
-
-  return normalizeMediaUrls(liveData)
+  return resolved
 }
 
 export async function loadContent(): Promise<ContentData> {
-  if (import.meta.env.DEV) {
-    if (!devInFlightPromise) {
-      devInFlightPromise = fetchDevLiveContent().finally(() => {
-        setTimeout(() => {
-          devInFlightPromise = null
-        }, 800)
-      })
-    }
-    return devInFlightPromise
+  const mappedProducts = rawProducts.map(mapProduct)
+  return {
+    products: mappedProducts,
+    categories: [...rawCategories],
+    testimonials: [...rawTestimonials],
+    settings: getResolvedSettings(),
   }
-
-  if (!cachedDataPromise) {
-    cachedDataPromise = (async () => {
-      const base = import.meta.env.BASE_URL || '/'
-      const buildTime = typeof __BUILD_ID__ !== 'undefined' ? __BUILD_ID__ : Date.now().toString()
-      const jsonUrl = `${base.endsWith('/') ? base : base + '/'}content.json?v=${encodeURIComponent(buildTime)}`
-      const res = await fetch(jsonUrl)
-      if (!res.ok) {
-        throw new Error(`[content.ts] Failed to load content.json (${res.status} ${res.statusText})`)
-      }
-      const data: ContentData = await res.json()
-      return normalizeMediaUrls(data)
-    })()
-  }
-  return cachedDataPromise
 }
 
 export async function fetchCategories(): Promise<Category[]> {
-  const data = await loadContent()
-  return [...(data.categories || [])].sort((a, b) => a.sort_order - b.sort_order)
+  return [...rawCategories].sort((a, b) => a.sort_order - b.sort_order)
 }
 
 export async function fetchPublishedProducts(categorySlug?: string): Promise<Product[]> {
-  const data = await loadContent()
-  let list = (data.products || []).filter((p) => p.is_published)
+  let list = rawProducts.filter((p) => p.published).map(mapProduct)
   if (categorySlug) {
-    const cat = data.categories?.find((c) => c.slug === categorySlug)
-    if (cat) {
-      list = list.filter((p) => p.category_id === cat.id)
-    } else {
-      return []
-    }
+    list = list.filter((p) => p.categories?.slug === categorySlug || p.category_id === categorySlug)
   }
   return list.sort((a, b) => a.sort_order - b.sort_order)
 }
 
 export async function fetchFeaturedProducts(): Promise<Product[]> {
-  const data = await loadContent()
-  return (data.products || [])
-    .filter((p) => p.is_published && p.is_featured)
+  return rawProducts
+    .filter((p) => p.published && p.featured)
+    .map(mapProduct)
     .sort((a, b) => a.sort_order - b.sort_order)
     .slice(0, 4)
 }
 
 export async function fetchProductBySlug(slug: string): Promise<Product | null> {
-  const data = await loadContent()
-  const prod = data.products?.find((p) => p.slug === slug && p.is_published)
-  return prod || null
+  const p = rawProducts.find((item) => item.slug === slug && item.published)
+  if (!p) return null
+  return mapProduct(p)
 }
 
 export async function fetchRelatedProducts(categoryId: string, excludeId: string): Promise<Product[]> {
-  const data = await loadContent()
-  return (data.products || [])
-    .filter((p) => p.is_published && p.category_id === categoryId && p.id !== excludeId)
+  return rawProducts
+    .filter(
+      (p) =>
+        p.published &&
+        (p.category === categoryId || p.category === rawCategories.find((c) => c.id === categoryId)?.slug) &&
+        p.slug !== excludeId
+    )
+    .map(mapProduct)
     .sort((a, b) => a.sort_order - b.sort_order)
     .slice(0, 3)
 }
 
 export async function fetchPublishedTestimonials(): Promise<Testimonial[]> {
-  const data = await loadContent()
-  return (data.testimonials || [])
+  return [...rawTestimonials]
     .filter((t) => t.is_published)
     .sort((a, b) => a.sort_order - b.sort_order)
 }
 
 export async function fetchSiteSettings(): Promise<SiteSettings> {
-  const data = await loadContent()
-  return data.settings || {}
+  return getResolvedSettings()
 }

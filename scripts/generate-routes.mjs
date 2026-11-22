@@ -15,20 +15,22 @@ if (!fs.existsSync(indexHtmlPath)) {
 
 const indexHtml = fs.readFileSync(indexHtmlPath, 'utf8');
 
-// Find content.json either in dist or public
-let contentJsonPath = path.join(distDir, 'content.json');
-if (!fs.existsSync(contentJsonPath)) {
-  contentJsonPath = path.join(rootDir, 'public', 'content.json');
-}
+// Extract product slugs from src/content/products.ts
+const productsFilePath = path.join(rootDir, 'src', 'content', 'products.ts');
+const productSlugs = [];
 
-let products = [];
-if (fs.existsSync(contentJsonPath)) {
+if (fs.existsSync(productsFilePath)) {
   try {
-    const raw = fs.readFileSync(contentJsonPath, 'utf8');
-    const parsed = JSON.parse(raw);
-    products = parsed.products || [];
+    const productsCode = fs.readFileSync(productsFilePath, 'utf8');
+    const slugRegex = /slug:\s*['"]([^'"]+)['"]/g;
+    let match;
+    while ((match = slugRegex.exec(productsCode)) !== null) {
+      if (match[1]) {
+        productSlugs.push(match[1]);
+      }
+    }
   } catch (err) {
-    console.warn('[generate-routes] Warning: Could not parse content.json for product slugs:', err.message);
+    console.warn('[generate-routes] Warning: Could not read product slugs:', err.message);
   }
 }
 
@@ -37,13 +39,9 @@ const staticRoutes = [
   'products',
   'craftsman',
   'contact',
-  'admin',
-  'admin/login',
 ];
 
-const dynamicRoutes = products
-  .filter((p) => p.slug)
-  .map((p) => `products/${p.slug}`);
+const dynamicRoutes = productSlugs.map((slug) => `products/${slug}`);
 
 const allRoutes = [...staticRoutes, ...dynamicRoutes];
 

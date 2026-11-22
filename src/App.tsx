@@ -1,7 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom'
 import { HelmetProvider } from 'react-helmet-async'
-import { Toaster } from 'react-hot-toast'
-import { useEffect, useState, lazy, Suspense } from 'react'
+import { useEffect, useState } from 'react'
 import '../src/i18n'
 
 // Public layout
@@ -16,20 +15,13 @@ import ProductDetail from './pages/ProductDetail'
 import Craftsman from './pages/Craftsman'
 import Contact from './pages/Contact'
 
-// Lazy-loaded Admin components (keeps Supabase out of public entry chunk)
-const AdminLogin = lazy(() => import('./admin/Login'))
-const AdminLayout = lazy(() => import('./admin/AdminLayout'))
-const AdminProducts = lazy(() => import('./admin/AdminProducts'))
-const ProductForm = lazy(() => import('./admin/ProductForm'))
-const TestimonialsManager = lazy(() => import('./admin/TestimonialsManager'))
-const SettingsForm = lazy(() => import('./admin/SettingsForm'))
-const AdminEnquiries = lazy(() => import('./admin/AdminEnquiries'))
-
 import { fetchSiteSettings, type SiteSettings } from './lib/content'
 
 function PublicLayout() {
   const [settings, setSettings] = useState<SiteSettings>({})
-  useEffect(() => { fetchSiteSettings().then(setSettings) }, [])
+  useEffect(() => {
+    fetchSiteSettings().then(setSettings)
+  }, [])
 
   return (
     <>
@@ -55,7 +47,9 @@ function PublicLayout() {
 
 function ScrollToTop() {
   const { pathname } = useLocation()
-  useEffect(() => { window.scrollTo(0, 0) }, [pathname])
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [pathname])
   return null
 }
 
@@ -64,43 +58,7 @@ export default function App() {
     <HelmetProvider>
       <BrowserRouter basename={import.meta.env.BASE_URL}>
         <ScrollToTop />
-        <Toaster
-          position="bottom-right"
-          toastOptions={{
-            style: {
-              background: '#3B2418',
-              color: '#fff',
-              fontSize: '14px',
-              borderRadius: '0px',
-            },
-          }}
-        />
         <Routes>
-          {/* Admin routes (lazy loaded) */}
-          <Route
-            path="/admin/login"
-            element={
-              <Suspense fallback={null}>
-                <AdminLogin />
-              </Suspense>
-            }
-          />
-          <Route
-            path="/admin"
-            element={
-              <Suspense fallback={null}>
-                <AdminLayout />
-              </Suspense>
-            }
-          >
-            <Route index element={<Navigate to="/admin/products" replace />} />
-            <Route path="products" element={<AdminProducts />} />
-            <Route path="products/:id" element={<ProductForm />} />
-            <Route path="testimonials" element={<TestimonialsManager />} />
-            <Route path="settings" element={<SettingsForm />} />
-            <Route path="enquiries" element={<AdminEnquiries />} />
-          </Route>
-          {/* Public site */}
           <Route path="/*" element={<PublicLayout />} />
         </Routes>
       </BrowserRouter>
