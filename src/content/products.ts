@@ -169,6 +169,54 @@ export const products: ProductItem[] = [
     ],
   },
   {
+    slug: 'dining-table-and-benches',
+    category: 'seating',
+    name_en: 'Dining Table and Benches Set',
+    name_rw: "Ameza yo Kuriraho n'Intebe Ndende", // needs native review
+    name_fr: 'Ensemble Table à Manger et Bancs', // needs native review
+    description_en: 'A solid wooden dining table with matching benches, built on a strong braced frame with a natural, rustic finish. It suits patios, gardens and family dining rooms, and is made to the size, number of seats and wood you choose.',
+    description_rw: "Ameza yo kuriraho akomeye y'imbaho ari kumwe n'intebe ndende zihuye nayo, yubatswe ku nkingi zikomeye zishyigikiranye kandi afite isuku y'umwimerere. Aberanye n'imbuga, ubusitani n'ibyumba byo kuriramo by'umuryango, kandi akorwa ku bunini, umubare w'imyanya yo kwicaraho n'ubwoko bw'igiti wihitiyemo.", // needs native review
+    description_fr: "Une table à manger en bois massif avec ses bancs assortis, construite sur une structure renforcée robuste à la finition naturelle et rustique. Elle convient aux terrasses, jardins et salles à manger familiales, et est fabriquée aux dimensions, au nombre de places et dans l'essence de bois de votre choix.", // needs native review
+    wood_type: 'Your choice',
+    dimensions: 'Made to measure',
+    lead_time_text: '4–6 weeks',
+    price_amount: null, // Price on request
+    currency: 'RWF',
+    published: true,
+    featured: true,
+    sortOrder: 8,
+    images: [
+      {
+        url: 'images/products/dining-table-and-benches/1.webp',
+        alt_text: 'Dining Table and Benches Set in natural rustic solid wood',
+      },
+    ],
+  },
+  {
+    slug: 'custom-christmas-tree',
+    category: 'custom-pieces',
+    name_en: 'Custom Christmas Tree',
+    name_rw: 'Igiti cya Noheli Gikorwa ku Cyifuzo', // needs native review
+    name_fr: 'Sapin de Noël Sur Mesure', // needs native review
+    description_en: 'A freestanding Christmas tree built on a sturdy frame, set on a wooden base with room underneath for gifts. It is made to the height and shape you need and can be reused every year. The lights, baubles and gifts shown in the photo are not included.',
+    description_rw: "Igiti cya Noheli gihagaze cyonyine cyubatswe ku nkingi zikomeye, giteretse ku ntango y'imbaho ifite umwanya munsi wo gushyiramo impano. Gikorwa ku burebure n'imiterere ukeneye kandi gishobora kongera gukoreshwa buri mwaka. Amatara, imitako n'impano bigaragara ku ifoto ntibirimo.", // needs native review
+    description_fr: "Un sapin de Noël autoportant construit sur une structure solide, posé sur une base en bois avec de l'espace en dessous pour les cadeaux. Il est fabriqué à la hauteur et à la forme dont vous avez besoin et peut être réutilisé chaque année. Les guirlandes lumineuses, boules et cadeaux visibles sur la photo ne sont pas inclus.", // needs native review
+    wood_type: 'Your choice',
+    dimensions: 'Made to measure',
+    lead_time_text: '2–4 weeks',
+    price_amount: null, // Price on request
+    currency: 'RWF',
+    published: true,
+    featured: true,
+    sortOrder: 9,
+    images: [
+      {
+        url: 'images/products/custom-christmas-tree/1.webp',
+        alt_text: 'Custom freestanding Christmas tree on a wooden gift base',
+      },
+    ],
+  },
+  {
     slug: 'kintu-queen-bed',
     category: 'beds',
     name_en: 'Kintu Queen Bed',
@@ -184,7 +232,7 @@ export const products: ProductItem[] = [
     currency: 'RWF',
     published: true,
     featured: false,
-    sortOrder: 8,
+    sortOrder: 10,
     images: [],
   },
   {
@@ -203,7 +251,7 @@ export const products: ProductItem[] = [
     currency: 'RWF',
     published: true,
     featured: false,
-    sortOrder: 9,
+    sortOrder: 11,
     images: [],
   },
   {
@@ -222,7 +270,7 @@ export const products: ProductItem[] = [
     currency: 'RWF',
     published: true,
     featured: true,
-    sortOrder: 10,
+    sortOrder: 12,
     images: [],
   },
   {
@@ -241,7 +289,7 @@ export const products: ProductItem[] = [
     currency: 'RWF',
     published: true,
     featured: false,
-    sortOrder: 11,
+    sortOrder: 13,
     images: [],
   },
   {
@@ -260,7 +308,7 @@ export const products: ProductItem[] = [
     currency: 'RWF',
     published: true,
     featured: true,
-    sortOrder: 12,
+    sortOrder: 14,
     images: [],
   },
   {
@@ -279,7 +327,7 @@ export const products: ProductItem[] = [
     currency: 'RWF',
     published: true,
     featured: false,
-    sortOrder: 13,
+    sortOrder: 15,
     images: [],
   },
   {
@@ -298,7 +346,7 @@ export const products: ProductItem[] = [
     currency: 'RWF',
     published: true,
     featured: false,
-    sortOrder: 14,
+    sortOrder: 16,
     images: [],
   },
 ]
