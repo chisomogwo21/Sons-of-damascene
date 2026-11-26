@@ -124,16 +124,27 @@ export default function About() {
 
                 return (
                   <div key={step} className="flex flex-col gap-3">
-                    <div className="relative overflow-hidden aspect-square">
+                    <div className="relative overflow-hidden aspect-square bg-[#F5EDD8]">
                       {imgUrl ? (
-                        <img
-                          src={imgUrl}
-                          alt={imgAlt}
-                          loading="lazy"
-                          width={400}
-                          height={400}
-                          className="w-full h-full object-cover"
-                        />
+                        <>
+                          <img
+                            src={imgUrl}
+                            alt=""
+                            aria-hidden="true"
+                            loading="lazy"
+                            className="absolute inset-0 w-full h-full object-cover pointer-events-none select-none"
+                            style={{ filter: 'blur(24px)', transform: 'scale(1.35)' }}
+                          />
+                          <div className="absolute inset-0 bg-[#FBF6EA]/60 pointer-events-none" />
+                          <img
+                            src={imgUrl}
+                            alt={imgAlt}
+                            loading="lazy"
+                            width={400}
+                            height={400}
+                            className="relative z-10 w-full h-full object-contain"
+                          />
+                        </>
                       ) : (
                         <Placeholder label={step} />
                       )}
