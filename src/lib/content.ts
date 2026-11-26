@@ -129,7 +129,12 @@ export async function loadContent(): Promise<ContentData> {
 }
 
 export async function fetchCategories(): Promise<Category[]> {
-  return [...rawCategories].sort((a, b) => a.sort_order - b.sort_order)
+  const activeCategorySlugs = new Set(
+    rawProducts.filter((p) => p.published).map((p) => p.category)
+  )
+  return rawCategories
+    .filter((c) => activeCategorySlugs.has(c.slug))
+    .sort((a, b) => a.sort_order - b.sort_order)
 }
 
 export async function fetchPublishedProducts(categorySlug?: string): Promise<Product[]> {
