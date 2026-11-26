@@ -50,16 +50,34 @@ export default function Header({ heroHeight = 0 }: { heroHeight?: number }) {
         )}
 
         <div className="content-max flex items-center justify-between h-16 md:h-20">
-          {/* Wordmark – DM Sans, weight 600 */}
+          {/* Brand lockup: trimmed emblem + existing DM Sans wordmark */}
           <Link
             to="/"
-            style={isLight ? { textShadow: '0 1px 24px rgba(0,0,0,0.25)' } : undefined}
-            className={`font-wordmark text-sm md:text-base tracking-tight transition-colors leading-tight ${
-              isLight ? 'text-white' : 'text-[#3B2418]'
-            }`}
-            aria-label="Sons of Damascene – home"
+            className="inline-flex items-center gap-2.5 md:gap-3"
+            aria-label="Sons of Damascene - home"
           >
-            Sons of<br className="hidden xs:block" /> Damascene
+            <img
+              src={`${import.meta.env.BASE_URL}images/brand/logo-emblem.png`}
+              alt=""
+              aria-hidden="true"
+              width={54}
+              height={52}
+              style={
+                isLight
+                  ? { filter: 'drop-shadow(0 1px 6px rgba(251, 246, 234, 0.5))' }
+                  : undefined
+              }
+              className="h-[42px] md:h-[52px] w-auto shrink-0 transition-[filter] duration-300"
+            />
+            <span
+              aria-hidden="true"
+              style={isLight ? { textShadow: '0 1px 24px rgba(0,0,0,0.25)' } : undefined}
+              className={`font-wordmark text-sm md:text-base tracking-tight transition-colors leading-tight ${
+                isLight ? 'text-white' : 'text-[#3B2418]'
+              }`}
+            >
+              Sons of<br className="hidden xs:block" /> Damascene
+            </span>
           </Link>
 
           {/* Desktop nav */}

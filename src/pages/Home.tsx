@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import SEO from '../components/SEO'
 import Hero from '../components/Hero'
@@ -9,6 +9,7 @@ import {
   fetchCategories,
   fetchPublishedTestimonials,
   fetchSiteSettings,
+  getHeroImages,
   type Category,
   type Testimonial,
   type SiteSettings,
@@ -35,6 +36,7 @@ function useScrollReveal() {
 
 export default function Home() {
   const { t } = useTranslation()
+  const heroImages = useMemo(() => getHeroImages(), [])
   const [categories, setCategories] = useState<Category[]>([])
   const [testimonials, setTestimonials] = useState<Testimonial[]>([])
   const [settings, setSettings] = useState<SiteSettings>({})
@@ -67,8 +69,7 @@ export default function Home() {
 
       {/* Hero */}
       <Hero
-        videoUrl={settings.hero_video_url}
-        posterUrl={settings.hero_poster_url}
+        images={heroImages}
         overlayOpacity={settings.hero_overlay_opacity}
       />
 

@@ -1,11 +1,16 @@
 import { categories as rawCategories, type Category } from '../content/categories'
 import { testimonials as rawTestimonials, type Testimonial } from '../content/testimonials'
-import { settings as rawSettings, type SiteSettings } from '../content/settings'
+import {
+  settings as rawSettings,
+  heroImages as rawHeroImages,
+  type SiteSettings,
+  type HeroImageItem,
+} from '../content/settings'
 import { products as rawProducts, type ProductItem } from '../content/products'
 
 export type { Category } from '../content/categories'
 export type { Testimonial } from '../content/testimonials'
-export type { SiteSettings } from '../content/settings'
+export type { SiteSettings, HeroImageItem } from '../content/settings'
 
 export interface ProductImage {
   id: string
@@ -95,8 +100,6 @@ function mapProduct(p: ProductItem): Product {
 function getResolvedSettings(): SiteSettings {
   const resolved: SiteSettings = { ...rawSettings }
   const mediaKeys = [
-    'hero_video_url',
-    'hero_poster_url',
     'collage_workshop_url',
     'collage_materials_url',
     'collage_finish_url',
@@ -111,21 +114,39 @@ function getResolvedSettings(): SiteSettings {
     'craftsman_tools_url',
   ]
   for (const k of mediaKeys) {
-    if (resolved[k]) {
-      resolved[k] = resolveMediaUrl(resolved[k])
+    const val = resolved[k]
+    if (typeof val === 'string' && val) {
+      resolved[k] = resolveMediaUrl(val)
     }
   }
   return resolved
+}
+
+export function getHeroImages(): HeroImageItem[] {
+  return rawHeroImages.map((img) => ({
+    ...img,
+    url: resolveMediaUrl(img.url),
+  }))
 }
 
 export async function loadContent(): Promise<ContentData> {
   const mappedProducts = rawProducts.map(mapProduct)
   return {
     products: mappedProducts,
-    categories: [...rawCategories],
+    categories: await fetchCategories(),
     testimonials: [...rawTestimonials],
     settings: getResolvedSettings(),
   }
+}
+
+function getFirstProductCoverForCategory(categorySlug: string): string | null {
+  const match = [...rawProducts]
+    .filter((p) => p.published && p.category === categorySlug && p.images.length > 0)
+    .sort((a, b) => a.sortOrder - b.sortOrder)[0]
+  if (!match) return null
+  const firstImg = match.images[0]
+  const rawUrl = typeof firstImg === 'string' ? firstImg : firstImg?.url
+  return rawUrl ? resolveMediaUrl(rawUrl) : null
 }
 
 export async function fetchCategories(): Promise<Category[]> {
@@ -135,6 +156,16 @@ export async function fetchCategories(): Promise<Category[]> {
   return rawCategories
     .filter((c) => activeCategorySlugs.has(c.slug))
     .sort((a, b) => a.sort_order - b.sort_order)
+    .map((c) => {
+      const explicitCover = c.coverImage || c.cover_image_url
+      const resolvedCover = explicitCover
+        ? resolveMediaUrl(explicitCover)
+        : getFirstProductCoverForCategory(c.slug)
+      return {
+        ...c,
+        cover_image_url: resolvedCover,
+      }
+    })
 }
 
 export async function fetchPublishedProducts(categorySlug?: string): Promise<Product[]> {

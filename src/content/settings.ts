@@ -1,3 +1,23 @@
+export interface HeroImageItem {
+  url: string
+  alt: string
+  /** CSS object-position focal point so the furniture piece is never cut off */
+  position?: string
+}
+
+/**
+ * Photos shown in the home page hero panels.
+ * Adding a photo is one new line here.
+ */
+export const heroImages: HeroImageItem[] = [
+  { url: 'images/products/bed/1.webp', alt: 'Handcrafted Solid Wood Bed', position: '52% 68%' },
+  { url: 'images/products/dining-table-and-benches/1.webp', alt: 'Dining Table and Benches Set', position: '52% 62%' },
+  { url: 'images/products/fabric-wrapped-low-bed/1.webp', alt: 'Fabric-Wrapped Low Bed', position: '48% 72%' },
+  { url: 'images/products/slatted-bench/1.webp', alt: 'Slatted Bench', position: '50% 78%' },
+  { url: 'images/products/tic-tac-toe-set/1.webp', alt: 'Tic-Tac-Toe Game Set', position: '50% 50%' },
+  { url: 'images/products/serving-tray/1.webp', alt: 'Handled Serving Tray', position: '46% 50%' },
+]
+
 export interface SiteSettings {
   whatsapp_number?: string
   contact_phone?: string
@@ -7,8 +27,6 @@ export interface SiteSettings {
   instagram_url?: string
   facebook_url?: string
   hero_overlay_opacity?: string
-  hero_video_url?: string
-  hero_poster_url?: string
   collage_workshop_url?: string
   collage_workshop_alt?: string
   collage_materials_url?: string
@@ -44,9 +62,7 @@ export const settings: SiteSettings = {
   hours: 'Mon–Sat 8am–6pm',
   instagram_url: '',
   facebook_url: '',
-  hero_overlay_opacity: '20',
-  hero_video_url: 'images/site/hero.mp4',
-  hero_poster_url: 'images/site/hero-poster.webp',
+  hero_overlay_opacity: '35',
   collage_workshop_url: 'images/site/collage-workshop.webp',
   collage_workshop_alt: 'Workshop in Kigali',
   collage_materials_url: 'images/site/collage-materials.webp',
@@ -59,9 +75,9 @@ export const settings: SiteSettings = {
   about_banner_alt: 'Sons of Damascene wordmark on a plaster wall',
   craftsman_portrait_url: '',
   craftsman_portrait_alt: '',
-  craftsman_process_url: '',
-  craftsman_process_alt: '',
-  about_process_1_url: 'images/products/serving-tray/1.webp',
+  craftsman_process_url: 'images/site/craftsman-workshop.webp',
+  craftsman_process_alt: 'Sons of Damascene woodworking workshop bench and tool shelves',
+  about_process_1_url: 'images/products/serving-tray/image.png',
   about_process_1_alt: 'A handled wooden serving tray from our workshop',
   about_process_2_url: 'images/site/about-process-2.webp',
   about_process_2_alt: 'Carving chisels on a workbench',
@@ -69,6 +85,6 @@ export const settings: SiteSettings = {
   about_process_3_alt: 'A finished wooden clothes rack',
   about_process_4_url: 'images/site/about-process-4.webp',
   about_process_4_alt: "A finished bed set up in a customer's bedroom",
-  craftsman_tools_url: '',
-  craftsman_tools_alt: '',
+  craftsman_tools_url: 'images/site/craftsman-tools.webp',
+  craftsman_tools_alt: 'Woodworking hand and power tools on the workshop bench',
 }

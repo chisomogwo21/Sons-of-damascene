@@ -89,9 +89,9 @@ Edit [src/content/testimonials.ts](file:///c:/Users/hp/OneDrive/Desktop/Sons/of/
 ## 4. Managing Categories and Site Settings
 
 - **Categories:** Edit [src/content/categories.ts](file:///c:/Users/hp/OneDrive/Desktop/Sons/of/Damascene/src/content/categories.ts).
-- **Hero Video & Site Settings:** Edit [src/content/settings.ts](file:///c:/Users/hp/OneDrive/Desktop/Sons/of/Damascene/src/content/settings.ts).
-  - Site images (collage, hero poster, banners) are stored in `public/images/site/`.
-  - Hero video is located at `public/images/site/hero.mp4` and its first frame poster at `public/images/site/hero-poster.webp`.
+- **Hero Photos & Site Settings:** Edit [src/content/settings.ts](file:///c:/Users/hp/OneDrive/Desktop/Sons/of/Damascene/src/content/settings.ts).
+  - Site images (collage, banners) are stored in `public/images/site/`.
+  - Home page hero photos are listed in `heroImages` in `src/content/settings.ts` (reusing existing product cover WebP images with alt text and `position` focal points).
 
 ---
 

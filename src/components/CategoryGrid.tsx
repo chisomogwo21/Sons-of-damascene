@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import type { Category } from '../lib/content'
-import CategoryIllustration from './CategoryIllustration'
+import Placeholder from './Placeholder'
 
 interface CategoryGridProps {
   categories: Category[]
@@ -52,37 +52,33 @@ export default function CategoryGrid({ categories, isLoading = false }: Category
           </div>
         </div>
       ) : (
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-px bg-[#E6DFCF] border-b border-[#E6DFCF] overflow-hidden">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-[#E6DFCF] border-b border-[#E6DFCF] overflow-hidden">
           {categories.map((cat) => {
             const categoryName = getName(cat)
             return (
               <Link
                 key={cat.id}
                 to={`/products?category=${cat.slug}`}
-                className="group flex flex-col justify-between bg-[#FBF6EA] transition-colors aspect-[1/0.8]"
+                className="group flex flex-col bg-[#FBF6EA] transition-colors"
                 aria-label={categoryName}
               >
-                {/* Image area: centred with image/illustration at max 50% width */}
-                <div className="relative flex-1 w-full flex items-center justify-center p-4">
+                {/* Uniform 4:5 photo frame with tuned focal point */}
+                <div className="relative w-full aspect-[4/5] overflow-hidden bg-[#F5EDD8]">
                   {cat.cover_image_url ? (
                     <img
                       src={cat.cover_image_url}
                       alt={categoryName}
-                      className="max-w-[50%] max-h-[75%] object-contain object-center transition-transform duration-300 group-hover:scale-[1.04]"
+                      style={{ objectPosition: cat.coverPosition || '50% 50%' }}
+                      className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.04]"
                       loading="lazy"
                     />
                   ) : (
-                    <div className="w-full h-full max-w-[50%] flex items-center justify-center">
-                      <CategoryIllustration
-                        slug={cat.slug}
-                        className="transition-transform duration-300 group-hover:scale-[1.04]"
-                      />
-                    </div>
+                    <Placeholder />
                   )}
                 </div>
 
-                {/* Label: centred directly under image — Supreme 400 */}
-                <div className="pb-5 px-4 text-center">
+                {/* Label centred below photo — Supreme 400 */}
+                <div className="py-4 md:py-5 px-4 text-center">
                   <span className="text-[17px] font-normal text-[#3B2418] group-hover:underline underline-offset-4 transition-all">
                     {categoryName}
                   </span>
@@ -91,11 +87,11 @@ export default function CategoryGrid({ categories, isLoading = false }: Category
             )
           })}
 
-          {/* 6th quiet link cell when category count doesn't fill row evenly (e.g. 5 categories) */}
+          {/* Quiet link cell when category count doesn't fill a 3-col row evenly */}
           {showAllPiecesCell && (
             <Link
               to="/products"
-              className="group flex flex-col items-center justify-center bg-[#FBF6EA] aspect-[1/0.8] p-6 text-center transition-colors"
+              className="group flex flex-col items-center justify-center bg-[#FBF6EA] min-h-[240px] p-6 text-center transition-colors"
               aria-label={t('home.all_pieces', allPiecesText)}
             >
               <span className="text-[17px] font-normal text-[#3B2418] group-hover:underline underline-offset-4 flex items-center gap-1.5 transition-all">

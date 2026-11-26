@@ -80,8 +80,16 @@ export default function Footer({ instagram, facebook }: FooterProps) {
         {/* Main Footer Layout: 55% / 40% on desktop, single column on mobile */}
         <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-10 md:gap-0">
           
-          {/* Left Column: Wordmark (2 lines) -> Social Icons -> Tagline */}
+          {/* Left Column: Emblem -> Wordmark (2 lines) -> Social Icons -> Tagline */}
           <div className="w-full md:w-[55%]">
+            <img
+              src={`${import.meta.env.BASE_URL}images/brand/logo-emblem.png`}
+              alt="Sons of Damascene emblem"
+              loading="lazy"
+              width={91}
+              height={88}
+              className="h-[76px] md:h-[88px] w-auto mb-4"
+            />
             <h2 className="footer-wordmark font-wordmark">
               Sons of<br />Damascene
             </h2>
